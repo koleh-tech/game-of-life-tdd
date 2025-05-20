@@ -7,7 +7,7 @@
 		"dev": "vite",
 		"build": "tsc -b && vite build",
 		"lint": "eslint . && tsc -b",
-		"test": "tsc -b && jasmine",
+		"test": "tsc && jasmine",
 		"format": "prettier --write ./*",
 		"preview": "vite preview"
 	},
