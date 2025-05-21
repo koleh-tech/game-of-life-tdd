@@ -9,19 +9,19 @@ export class GameState {
 			throw new InvalidGameDimensions("Invalid game dimensions")
 		}
 		const result: Cell[] = []
-		for (let i = 0; i < this.state.length; i++) {
-			for (let j = 0; j < this.state[i].length; j++) {
+		for (let row = 0; row < this.state.length; row++) {
+			for (let column = 0; column < this.state[row].length; column++) {
 				const neighbors: number[] = [
-					this.state[i - 1]?.[j - 1],
-					this.state[i - 1]?.[j],
-					this.state[i - 1]?.[j + 1],
-					this.state[i]?.[j - 1],
-					this.state[i]?.[j + 1],
-					this.state[i + 1]?.[j - 1],
-					this.state[i + 1]?.[j],
-					this.state[i + 1]?.[j + 1],
+					this.state[row - 1]?.[column - 1],
+					this.state[row - 1]?.[column],
+					this.state[row - 1]?.[column + 1],
+					this.state[row]?.[column - 1],
+					this.state[row]?.[column + 1],
+					this.state[row + 1]?.[column - 1],
+					this.state[row + 1]?.[column],
+					this.state[row + 1]?.[column + 1],
 				].filter((n) => n !== undefined)
-				result.push({ state: this.state[i][j], neighbors: neighbors })
+				result.push({ state: this.state[row][column], neighbors: neighbors })
 			}
 		}
 		return result

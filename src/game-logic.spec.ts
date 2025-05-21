@@ -29,7 +29,7 @@ describe("enrichGameState neighboring cell population", () => {
 		).toEqual(expected)
 	})
 
-	test("surrouned by neighbors", () => {
+	test("surrounded by neighbors", () => {
 		const expected: Cell = { state: 1, neighbors: [0, 0, 0, 0, 0, 0, 0, 0] }
 		expect(
 			new GameState([
