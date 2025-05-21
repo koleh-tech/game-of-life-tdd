@@ -18,13 +18,13 @@ describe("enrichGameState neighboring cell population", () => {
 		expect(enrichGameState([[0]])[0]).toEqual(expected)
 	})
 
-	test("no neighbors", () => {
-		const expected: Cell = { state: 1, neighbors: [] }
+	test("three neighbors", () => {
+		const expected: Cell = { state: 1, neighbors: [0, 0, 0] }
 		expect(
 			enrichGameState([
 				[0, 0],
 				[1, 0],
-			])[2].state,
-		).toEqual(expected.state)
+			])[2],
+		).toEqual(expected)
 	})
 })

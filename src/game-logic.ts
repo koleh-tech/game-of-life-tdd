@@ -7,10 +7,18 @@ export function enrichGameState(arg1: number[][]): Cell[] {
 		throw new InvalidGameDimensions("Invalid game dimensions")
 	}
 	const result: Cell[] = []
-	arg1.forEach((row) => {
-		return row.forEach((cell) => {
-			return result.push({ state: cell, neighbors: [] })
-		})
-	})
+	for (let i = 0; i < arg1.length; i++) {
+		for (let j = 0; j < arg1[i].length; j++) {
+			const neighbors: number[] = [
+				arg1[i - 1]?.[j - 1],
+				arg1[i]?.[j + 1],
+				arg1[i - 1]?.[j],
+				arg1[i]?.[j - 1],
+				arg1[i - 1]?.[j + 1],
+				arg1[i + 1]?.[j + 1],
+			].filter((n) => n !== undefined)
+			result.push({ state: arg1[i][j], neighbors: neighbors })
+		}
+	}
 	return result
 }
