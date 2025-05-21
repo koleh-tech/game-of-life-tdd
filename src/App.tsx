@@ -15,7 +15,9 @@ function App() {
 		const interval = setInterval(() => {
 			const previousGeneration = new GameState(gameBoard)
 			const nextGeneration = previousGeneration.flatten().map(newStateForCell)
-			setGameBoard(createGameStateFrom(nextGeneration, previousGeneration))
+			setGameBoard(
+				createGameStateFrom(nextGeneration, previousGeneration).board,
+			)
 		}, 1000)
 		return () => clearInterval(interval)
 	})
