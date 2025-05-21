@@ -5,24 +5,23 @@ export class InvalidGameDimensions extends Error {}
 export class GameState {
 	constructor(private state: number[][]) {}
 	enrichGameState(): Cell[] {
-		const arg1 = this.state
-		if (arg1.length <= 1 && !arg1[0].length) {
+		if (this.state.length <= 1 && !this.state[0].length) {
 			throw new InvalidGameDimensions("Invalid game dimensions")
 		}
 		const result: Cell[] = []
-		for (let i = 0; i < arg1.length; i++) {
-			for (let j = 0; j < arg1[i].length; j++) {
+		for (let i = 0; i < this.state.length; i++) {
+			for (let j = 0; j < this.state[i].length; j++) {
 				const neighbors: number[] = [
-					arg1[i - 1]?.[j - 1],
-					arg1[i - 1]?.[j],
-					arg1[i - 1]?.[j + 1],
-					arg1[i]?.[j - 1],
-					arg1[i]?.[j + 1],
-					arg1[i + 1]?.[j - 1],
-					arg1[i + 1]?.[j],
-					arg1[i + 1]?.[j + 1],
+					this.state[i - 1]?.[j - 1],
+					this.state[i - 1]?.[j],
+					this.state[i - 1]?.[j + 1],
+					this.state[i]?.[j - 1],
+					this.state[i]?.[j + 1],
+					this.state[i + 1]?.[j - 1],
+					this.state[i + 1]?.[j],
+					this.state[i + 1]?.[j + 1],
 				].filter((n) => n !== undefined)
-				result.push({ state: arg1[i][j], neighbors: neighbors })
+				result.push({ state: this.state[i][j], neighbors: neighbors })
 			}
 		}
 		return result
