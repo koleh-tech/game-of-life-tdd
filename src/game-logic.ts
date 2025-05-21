@@ -3,10 +3,7 @@ import type { Cell } from "./cell-logic"
 export class InvalidGameDimensions extends Error {}
 
 export class GameState {
-	constructor(
-		private state: number[][],
-		private statusChecker: (cell: Cell) => number,
-	) {}
+	constructor(public state: number[][]) {}
 
 	flattened(): Cell[] {
 		if (this.state.length <= 1 && !this.state[0].length) {
@@ -37,14 +34,14 @@ export class GameState {
 	}
 }
 
-function createGameStateFrom(flattened: Cell[], state) {
-	const halfway = flattened.map((cell) => cell.state)
-
+export function createGameStateFrom(flattened: Cell[], gameState: GameState) {
+	const numCols = gameState.state[0].length
+	const cellStates = flattened.map((cell) => cell.state)
 	const result = []
-	for (let row = 0; row < state.length; row++) {
-		const startOfSlice = row * state[0].length
-		const endOfSlice = (row + 1) * state[0].length
-		result.push(halfway.slice(startOfSlice, endOfSlice))
+	for (let row = 0; row < gameState.state.length; row++) {
+		const startOfSlice = row * numCols
+		const endOfSlice = (row + 1) * numCols
+		result.push(cellStates.slice(startOfSlice, endOfSlice))
 	}
 	return result
 }

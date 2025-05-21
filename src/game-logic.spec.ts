@@ -1,5 +1,9 @@
 import { describe, expect, test } from "vitest"
-import { GameState, InvalidGameDimensions } from "./game-logic"
+import {
+	createGameStateFrom,
+	GameState,
+	InvalidGameDimensions,
+} from "./game-logic"
 import type { Cell } from "./cell-logic"
 
 describe("enrichGameState", () => {
@@ -46,7 +50,7 @@ describe("nextGeneration", () => {
 		const statusChecker = (cell: Cell) => 0
 		const cell = { state: 0, neighbors: [] }
 		expect(
-			new GameState([[0, 0, 0]], statusChecker).inflate([cell, cell, cell]),
+			createGameStateFrom([cell, cell, cell], new GameState([[0, 0, 0]])),
 		).toEqual([[0, 0, 0]])
 	})
 })
