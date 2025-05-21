@@ -33,21 +33,12 @@ export class GameState {
 
 	// static meothod:
 	inflate(flattened: Cell[]) {
-		const halfway = flattened.map((cell) => this.statusChecker(cell))
-		return createGameStateFrom(halfway, this.state)
-
-		const result = []
-		for (let row = 0; row < this.state.length; row++) {
-			const startOfSlice = row * this.state[0].length
-			const endOfSlice = (row + 1) * this.state[0].length
-			result.push(halfway.slice(startOfSlice, endOfSlice))
-		}
-		return result
+		return createGameStateFrom(flattened, this.state)
 	}
 }
 
-function createGameStateFrom(flattened: number[], state) {
-	const halfway = flattened
+function createGameStateFrom(flattened: Cell[], state) {
+	const halfway = flattened.map((cell) => cell.state)
 
 	const result = []
 	for (let row = 0; row < state.length; row++) {
