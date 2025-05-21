@@ -8,6 +8,7 @@ describe("enrichGameState", () => {
 			InvalidGameDimensions,
 		)
 	})
+
 	test("flattens game state to one dimension", () => {
 		expect(new GameState([[0, 0]]).enrichGameState().length).toEqual(2)
 	})
@@ -39,5 +40,14 @@ describe("enrichGameState neighboring cell population", () => {
 				[0, 0, 0],
 			]).enrichGameState()[4],
 		).toEqual(expected)
+	})
+})
+
+describe("nextGeneration", () => {
+	test("applies rules to each cell", () => {
+		const statusChecker = (cell: Cell) => 0
+		expect(new GameState([[1, 1, 1]], statusChecker).nextGeneration()).toEqual([
+			[0, 0, 0],
+		])
 	})
 })

@@ -3,7 +3,13 @@ import type { Cell } from "./cell-logic"
 export class InvalidGameDimensions extends Error {}
 
 export class GameState {
-	constructor(private state: number[][]) {}
+	nextGeneration() {
+		return this.enrichGameState().map((cell) => this.statusChecker(cell))
+	}
+	constructor(
+		private state: number[][],
+		private statusChecker: (cell: Cell) => number,
+	) {}
 	enrichGameState(): Cell[] {
 		if (this.state.length <= 1 && !this.state[0].length) {
 			throw new InvalidGameDimensions("Invalid game dimensions")
