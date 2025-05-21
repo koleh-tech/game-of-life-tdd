@@ -2,7 +2,7 @@ import type { Cell } from "./cell-logic"
 
 export class InvalidGameDimensions extends Error {}
 
-export function cellsFrom(arg1: number[][]): Cell[] {
+export function enrichGameState(arg1: number[][]): Cell[] {
 	if (arg1.length <= 1 && !arg1[0].length) {
 		throw new InvalidGameDimensions("Invalid game dimensions")
 	}

@@ -1,18 +1,30 @@
 import { describe, expect, test } from "vitest"
-import { cellsFrom, InvalidGameDimensions } from "./game-logic"
+import { enrichGameState, InvalidGameDimensions } from "./game-logic"
 import type { Cell } from "./cell-logic"
 
 describe("enrichGameState", () => {
 	test("throws error if game dimensions invalid", () => {
-		expect(() => cellsFrom([[]])).toThrow(InvalidGameDimensions)
+		expect(() => enrichGameState([[]])).toThrow(InvalidGameDimensions)
 	})
 
 	test("flattens game state to one dimension", () => {
-		expect(cellsFrom([[0, 0]]).length).toEqual(2)
+		expect(enrichGameState([[0, 0]]).length).toEqual(2)
+	})
+})
+
+describe("enrichGameState neighboring cell population", () => {
+	test("no neighbors", () => {
+		const expected: Cell = { state: 0, neighbors: [] }
+		expect(enrichGameState([[0]])[0]).toEqual(expected)
 	})
 
-	test("results include neighboring cell states", () => {
-		const expected: Cell = { state: 0, neighbors: [] }
-		expect(cellsFrom([[0]])[0]).toEqual(expected)
+	test("no neighbors", () => {
+		const expected: Cell = { state: 1, neighbors: [] }
+		expect(
+			enrichGameState([
+				[0, 0],
+				[1, 0],
+			])[2].state,
+		).toEqual(expected.state)
 	})
 })
