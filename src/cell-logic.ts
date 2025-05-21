@@ -3,6 +3,6 @@ export interface Cell {
 	neighbors: number[]
 }
 
-export function newStateForCell(cell: Cell): any {
-	return cell.state === 1 ? 0 : 1
+export function newStateForCell(cell: Cell) {
+	return { ...cell, state: cell.state === 1 ? 0 : 1 }
 }
