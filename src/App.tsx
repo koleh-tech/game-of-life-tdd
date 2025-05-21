@@ -4,7 +4,6 @@ import { createGameStateFrom, GameState } from "./game-logic"
 import { newStateForCell } from "./cell-logic"
 
 function App() {
-	const [count, setCount] = useState(0)
 	const [gameState, setGameState] = useState<number[][]>([[0, 0, 0]])
 
 	//
