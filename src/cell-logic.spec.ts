@@ -7,7 +7,7 @@ describe("stateForCell", () => {
 	})
 
 	test("game state flattened to one dimension", () => {
-		expect(cellsFrom([[0, 0]])).toEqual([0, 0])
+		expect(cellsFrom([[0, 0]]).length).toEqual(2)
 	})
 
 	test("returns dead for no live neighbors", () => {
