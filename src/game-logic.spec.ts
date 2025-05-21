@@ -11,7 +11,7 @@ describe("enrichGameState", () => {
 		expect(() => new GameState([[]]).flattened()).toThrow(InvalidGameDimensions)
 	})
 
-	test("flattens game state to one dimension", () => {
+	test("flattens game state to 1D", () => {
 		expect(new GameState([[0, 0]]).flattened().length).toEqual(2)
 	})
 })
@@ -46,8 +46,7 @@ describe("enrichGameState neighboring cell population", () => {
 })
 
 describe("nextGeneration", () => {
-	test("applies rules to each cell", () => {
-		const statusChecker = (cell: Cell) => 0
+	test("brings 2D back", () => {
 		const cell = { state: 0, neighbors: [] }
 		expect(
 			createGameStateFrom([cell, cell, cell], new GameState([[0, 0, 0]])),

@@ -27,16 +27,11 @@ export class GameState {
 		}
 		return result
 	}
-
-	// static meothod:
-	inflate(flattened: Cell[]) {
-		return createGameStateFrom(flattened, this.state)
-	}
 }
 
-export function createGameStateFrom(flattened: Cell[], gameState: GameState) {
+export function createGameStateFrom(cells: Cell[], gameState: GameState) {
 	const numCols = gameState.state[0].length
-	const cellStates = flattened.map((cell) => cell.state)
+	const cellStates = cells.map((cell) => cell.state)
 	const result = []
 	for (let row = 0; row < gameState.state.length; row++) {
 		const startOfSlice = row * numCols
