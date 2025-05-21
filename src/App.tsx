@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react"
 import "./App.css"
-import { createGameStateFrom, GameState } from "./game-logic"
+import {
+	createGameStateFrom as createGameStateFrom,
+	GameState,
+} from "./game-logic"
 import { newStateForCell } from "./cell-logic"
 
 function App() {
-	const [gameState, setGameState] = useState<number[][]>([[0, 0, 0]])
+	const [gameBoard, setGameBoard] = useState<number[][]>([[0, 0, 0]])
 
 	//
 	// start looping every half second:
 	useEffect(() => {
 		const interval = setInterval(() => {
-			const thing = new GameState(gameState).flatten().map(newStateForCell)
-			setGameState(createGameStateFrom(thing, new GameState(gameState)))
+			const previousGeneration = new GameState(gameBoard)
+			const nextGeneration = previousGeneration.flatten().map(newStateForCell)
+			setGameBoard(createGameStateFrom(nextGeneration, previousGeneration))
 		}, 1000)
 		return () => clearInterval(interval)
 	})
@@ -19,7 +23,7 @@ function App() {
 		<>
 			<h1>Game of life</h1>
 			<p>Game state</p>
-			<pre>{JSON.stringify(gameState)}</pre>
+			<pre>{JSON.stringify(gameBoard)}</pre>
 		</>
 	)
 }

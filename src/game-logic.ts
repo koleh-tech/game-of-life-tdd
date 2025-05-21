@@ -38,5 +38,5 @@ export function createGameStateFrom(cells: Cell[], gameState: GameState) {
 		const endOfSlice = (row + 1) * numCols
 		result.push(cellStates.slice(startOfSlice, endOfSlice))
 	}
-	return result
+	return new GameState(result)
 }

@@ -50,6 +50,6 @@ describe("createGameStateFrom", () => {
 		const cell = { state: 0, neighbors: [] }
 		expect(
 			createGameStateFrom([cell, cell, cell], new GameState([[0, 0, 0]])),
-		).toEqual([[0, 0, 0]])
+		).toEqual(new GameState([[0, 0, 0]]))
 	})
 })
