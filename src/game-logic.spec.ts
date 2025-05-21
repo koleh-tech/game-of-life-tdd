@@ -6,20 +6,20 @@ import {
 } from "./game-logic"
 import type { Cell } from "./cell-logic"
 
-describe("enrichGameState", () => {
+describe("GameState flatten", () => {
 	test("throws error if game dimensions invalid", () => {
-		expect(() => new GameState([[]]).flattened()).toThrow(InvalidGameDimensions)
+		expect(() => new GameState([[]]).flatten()).toThrow(InvalidGameDimensions)
 	})
 
 	test("flattens game state to 1D", () => {
-		expect(new GameState([[0, 0]]).flattened().length).toEqual(2)
+		expect(new GameState([[0, 0]]).flatten().length).toEqual(2)
 	})
 })
 
-describe("enrichGameState neighboring cell population", () => {
+describe("GameState flatten neighboring cell population", () => {
 	test("no neighbors", () => {
 		const expected: Cell = { state: 0, neighbors: [] }
-		expect(new GameState([[0]]).flattened()[0]).toEqual(expected)
+		expect(new GameState([[0]]).flatten()[0]).toEqual(expected)
 	})
 
 	test("corner neighbors", () => {
@@ -29,7 +29,7 @@ describe("enrichGameState neighboring cell population", () => {
 				[0, 0, 0],
 				[0, 0, 0],
 				[1, 0, 0],
-			]).flattened()[6],
+			]).flatten()[6],
 		).toEqual(expected)
 	})
 
@@ -40,12 +40,12 @@ describe("enrichGameState neighboring cell population", () => {
 				[0, 0, 0],
 				[0, 1, 0],
 				[0, 0, 0],
-			]).flattened()[4],
+			]).flatten()[4],
 		).toEqual(expected)
 	})
 })
 
-describe("nextGeneration", () => {
+describe("createGameStateFrom", () => {
 	test("brings 2D back", () => {
 		const cell = { state: 0, neighbors: [] }
 		expect(

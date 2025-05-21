@@ -5,7 +5,7 @@ export class InvalidGameDimensions extends Error {}
 export class GameState {
 	constructor(public state: number[][]) {}
 
-	flattened(): Cell[] {
+	flatten(): Cell[] {
 		if (this.state.length <= 1 && !this.state[0].length) {
 			throw new InvalidGameDimensions("Invalid game dimensions")
 		}
