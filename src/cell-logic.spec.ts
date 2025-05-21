@@ -1,6 +1,11 @@
 import { describe, expect, test } from "vitest"
-describe("CellLogic", () => {
-	test("add 1 + 2 to equal 3", () => {
-		expect("2").toBe(3)
+export class InvalidGameDimensions extends Error {}
+describe("stateForCell", () => {
+	test("throws error if game dimensions invalid", () => {
+		expect(() => stateForCell(0, [[]])).toThrow(InvalidGameDimensions)
 	})
 })
+
+function stateForCell(arg0: number, arg1: never[][]): any {
+	throw new InvalidGameDimensions("Invalid game dimensions")
+}
