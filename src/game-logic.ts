@@ -4,7 +4,21 @@ export class InvalidGameDimensions extends Error {}
 
 export class GameState {
 	nextGeneration() {
-		return this.enrichGameState().map((cell) => this.statusChecker(cell))
+		const halfway = this.enrichGameState().map((cell) =>
+			this.statusChecker(cell),
+		)
+		const numRows = this.state.length
+		const numColumns = this.state[0].length
+		const result = []
+		for (let row = 0; row < numRows; row++) {
+			const sliceOfHalfway = halfway.slice(
+				row * numColumns,
+				(row + 1) * numColumns,
+			)
+			result.push(sliceOfHalfway)
+		}
+
+		return result
 	}
 	constructor(
 		private state: number[][],
