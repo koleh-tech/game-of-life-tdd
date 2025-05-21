@@ -3,28 +3,12 @@ import type { Cell } from "./cell-logic"
 export class InvalidGameDimensions extends Error {}
 
 export class GameState {
-	nextGeneration() {
-		const halfway = this.enrichGameState().map((cell) =>
-			this.statusChecker(cell),
-		)
-		const numRows = this.state.length
-		const numColumns = this.state[0].length
-		const result = []
-		for (let row = 0; row < numRows; row++) {
-			const sliceOfHalfway = halfway.slice(
-				row * numColumns,
-				(row + 1) * numColumns,
-			)
-			result.push(sliceOfHalfway)
-		}
-
-		return result
-	}
 	constructor(
 		private state: number[][],
 		private statusChecker: (cell: Cell) => number,
 	) {}
-	enrichGameState(): Cell[] {
+
+	flattened(): Cell[] {
 		if (this.state.length <= 1 && !this.state[0].length) {
 			throw new InvalidGameDimensions("Invalid game dimensions")
 		}
@@ -43,6 +27,18 @@ export class GameState {
 				].filter((n) => n !== undefined)
 				result.push({ state: this.state[row][column], neighbors: neighbors })
 			}
+		}
+		return result
+	}
+
+	inflate(flattened: Cell[]) {
+		const halfway = flattened.map((cell) => this.statusChecker(cell))
+
+		const result = []
+		for (let row = 0; row < this.state.length; row++) {
+			const startOfSlice = row * this.state[0].length
+			const endOfSlice = (row + 1) * this.state[0].length
+			result.push(halfway.slice(startOfSlice, endOfSlice))
 		}
 		return result
 	}
