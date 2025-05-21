@@ -5,11 +5,11 @@ export interface Cell {
 
 export class InvalidGameDimensions extends Error {}
 
-export function cellsFrom(arg0: number, arg1: never[][]): any {
+export function cellsFrom(arg1: never[][]): any {
 	if (arg1.length <= 1 && !arg1[0].length) {
 		throw new InvalidGameDimensions("Invalid game dimensions")
 	}
-	return 0
+	return arg1.flat()
 }
 
 export function newStateForCell(cell: Cell): any {

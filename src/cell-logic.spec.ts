@@ -3,7 +3,11 @@ import { InvalidGameDimensions, cellsFrom, newStateForCell } from "./cell-logic"
 
 describe("stateForCell", () => {
 	test("throws error if game dimensions invalid", () => {
-		expect(() => cellsFrom([0, 0], [[]])).toThrow(InvalidGameDimensions)
+		expect(() => cellsFrom([[]])).toThrow(InvalidGameDimensions)
+	})
+
+	test("game state flattened to one dimension", () => {
+		expect(cellsFrom([[0, 0]])).toEqual([0, 0])
 	})
 
 	test("returns dead for no live neighbors", () => {
