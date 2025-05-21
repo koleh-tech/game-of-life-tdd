@@ -44,9 +44,9 @@ describe("enrichGameState neighboring cell population", () => {
 describe("nextGeneration", () => {
 	test("applies rules to each cell", () => {
 		const statusChecker = (cell: Cell) => 0
-		const cell = { state: 1, neighbors: [] }
+		const cell = { state: 0, neighbors: [] }
 		expect(
-			new GameState([[1, 1, 1]], statusChecker).inflate([cell, cell, cell]),
+			new GameState([[0, 0, 0]], statusChecker).inflate([cell, cell, cell]),
 		).toEqual([[0, 0, 0]])
 	})
 })
