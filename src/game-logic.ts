@@ -4,7 +4,10 @@ export class InvalidGameDimensions extends Error {}
 
 export class GameState {
 	constructor(private state: number[][]) {}
-	enrichGameState(arg1: number[][]): Cell[] {
+	enrichGameState(arg1: number[][] = []): Cell[] {
+		this.state
+		// __AUTO_GENERATED_PRINT_VAR_START__
+		console.log("GameState#enrichGameState this.state: %s", this.state) // __AUTO_GENERATED_PRINT_VAR_END__
 		if (arg1.length <= 1 && !arg1[0].length) {
 			throw new InvalidGameDimensions("Invalid game dimensions")
 		}
