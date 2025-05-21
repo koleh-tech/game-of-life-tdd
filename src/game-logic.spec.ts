@@ -1,5 +1,6 @@
 import { describe, expect, test } from "vitest"
-import { InvalidGameDimensions, cellsFrom, type Cell } from "./cell-logic"
+import { cellsFrom, InvalidGameDimensions } from "./game-logic"
+import type { Cell } from "./cell-logic"
 
 describe("enrichGameState", () => {
 	test("throws error if game dimensions invalid", () => {
