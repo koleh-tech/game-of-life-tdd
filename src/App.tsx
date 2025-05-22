@@ -13,14 +13,14 @@ function App() {
 	])
 	const [runningState, setRunningState] = useState(false)
 
+	function runOneIteration() {
+		const previousGeneration = new GameState(gameBoard)
+		const nextGeneration = previousGeneration.flatten().map(updateCell)
+		setGameBoard(createGameStateFrom(nextGeneration, previousGeneration).board)
+	}
+
 	function loopEverySecond() {
-		const interval = setInterval(() => {
-			const previousGeneration = new GameState(gameBoard)
-			const nextGeneration = previousGeneration.flatten().map(updateCell)
-			setGameBoard(
-				createGameStateFrom(nextGeneration, previousGeneration).board,
-			)
-		}, 1000)
+		const interval = setInterval(runOneIteration, 1000)
 		return () => clearInterval(interval)
 	}
 
