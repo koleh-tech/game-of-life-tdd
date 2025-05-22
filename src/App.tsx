@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import "./App.css"
 import { createGameStateFrom, flattenGridIntoCells } from "./grid-logic"
 import { CellState, updateCell } from "./cell-logic"
+import { CellGridEditor } from "./cell-grid-editor"
 
 function App() {
 	const [gameBoard, setGameBoard] = useState<CellState[][]>([
@@ -32,11 +33,42 @@ function App() {
 		return loopEverySecond()
 	})
 
+	function renderCell(state: number, colNum: number, rowNum: number) {
+		const blankCell = (
+			<span className="cellState" role="img" aria-label="life">
+				⬛
+			</span>
+		)
+		const lifeEmoji = (
+			<span className="cellState" role="img" aria-label="life">
+				🟩
+			</span>
+		)
+		return (
+			<td
+				onClick={() =>
+					setGameBoard(
+						new CellGridEditor(gameBoard).withInvertedCellStateAt({
+							row: rowNum,
+							col: colNum,
+						}),
+					)
+				}
+			>
+				{state === CellState.ALIVE ? lifeEmoji : blankCell}
+			</td>
+		)
+	}
+
 	const cellGrid = (
 		<table>
 			<tbody>
-				{gameBoard.map((row, index) => (
-					<tr key={index}>{row.map(renderCell)}</tr>
+				{gameBoard.map((row, rowNum) => (
+					<tr>
+						{row.map((cellState, colNum) =>
+							renderCell(cellState, colNum, rowNum),
+						)}
+					</tr>
 				))}
 			</tbody>
 		</table>
@@ -50,22 +82,6 @@ function App() {
 			</div>
 			<div>{cellGrid}</div>
 		</>
-	)
-}
-
-function renderCell(state: number, colNum: number) {
-	const blankCell = (
-		<span className="cellState" role="img" aria-label="life">
-			⬛
-		</span>
-	)
-	const lifeEmoji = (
-		<span className="cellState" role="img" aria-label="life">
-			🟩
-		</span>
-	)
-	return (
-		<td key={colNum}>{state === CellState.ALIVE ? lifeEmoji : blankCell}</td>
 	)
 }
 
