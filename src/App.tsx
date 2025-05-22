@@ -34,17 +34,21 @@ function App() {
 			))}
 		</table>
 	)
-	return (
-		<>
-			<h1>Game of life</h1>
-			<p>Game state</p>
-			{cellGrid}
-		</>
-	)
+	return <>{cellGrid}</>
 }
 
 function renderCell(state: number) {
-	return <td>{state === 1 ? "■" : "□"}</td>
+	const skullEmoji = (
+		<span role="img" aria-label="skull">
+			💀
+		</span>
+	)
+	const lifeEmoji = (
+		<span role="img" aria-label="life">
+			❤️
+		</span>
+	)
+	return <td>{state === 1 ? lifeEmoji : skullEmoji}</td>
 }
 
 export default App
