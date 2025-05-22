@@ -33,18 +33,18 @@ export function createGameStateFrom(
 	cells: Cell[],
 	previousGameState: GameState,
 ) {
-	newCreation(cells, previousGameState.board)
-	const numCols = previousGameState.board[0].length
+	const previousGrid = previousGameState.board
+	return new GameState(newCreation(cells, previousGrid))
+}
+
+function newCreation(cells: Cell[], previousGrid: number[][]) {
+	const numCols = previousGrid[0].length
 	const cellStates = cells.map((cell) => cell.state)
 	const result = []
-	for (let row = 0; row < previousGameState.board.length; row++) {
+	for (let row = 0; row < previousGrid.length; row++) {
 		const startOfSlice = row * numCols
 		const endOfSlice = (row + 1) * numCols
 		result.push(cellStates.slice(startOfSlice, endOfSlice))
 	}
-	return new GameState(result)
-}
-
-function newCreation(cells: Cell[], previousGrid: number[][]) {
-	return previousGrid
+	return result
 }
