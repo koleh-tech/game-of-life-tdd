@@ -2,8 +2,9 @@ import { describe, expect, test } from "vitest"
 import { newStateForCell } from "./cell-logic"
 
 describe("stateForCell", () => {
-	test("returns dead for no live neighbors", () => {
+	test("1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.", () => {
 		expect(newStateForCell({ state: 1, neighbors: [] }).state).toBe(0)
+		expect(newStateForCell({ state: 1, neighbors: [0] }).state).toBe(0)
 	})
 
 	test("3. Any live cell with two or three live neighbours lives on to the next generation.", () => {
