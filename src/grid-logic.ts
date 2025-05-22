@@ -8,11 +8,10 @@ export type Coordinate = {
 }
 
 export class CellGridEditor {
-	constructor(private readonly board: CellState[][]) {}
+	constructor(public readonly originalGrid: CellState[][]) {}
 
 	invertCellStateAtCoordinate(arg0: Coordinate) {
-		const originalGrid: CellGridEditor = this
-		const result = originalGrid.board
+		const result = this.originalGrid.map((row) => [...row])
 		result[arg0.row][arg0.col] = result[arg0.row][arg0.col] === 0 ? 1 : 0
 		return result
 	}
