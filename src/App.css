@@ -64,11 +64,12 @@
 
 .grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
 	width: 100%;
-	max-width: 600px; /* Or whatever you want */
-	margin: 0 auto;
 	gap: 2px;
+	position: absolute;
+	top: 7rem;
+	left: 10px;
+	padding: 2rem;
 }
 
 .cell {
