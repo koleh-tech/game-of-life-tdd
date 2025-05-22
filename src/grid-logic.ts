@@ -25,14 +25,14 @@ export function flattenGridIntoCells(grid: CellState[][]) {
 	return result
 }
 
-export function oldFunc(cells: Cell[], desiredGrid: number[][]) {
-	return createGameStateFrom(cells, {
+export function oldFunc(cellsToExpand: Cell[], desiredGrid: number[][]) {
+	return createGameStateFrom(cellsToExpand, {
 		numRows: desiredGrid.length,
 		numCols: desiredGrid[0].length,
 	})
 }
 
-function createGameStateFrom(
+export function createGameStateFrom(
 	cells: Cell[],
 	{ numRows, numCols }: { numRows: number; numCols: number },
 ) {

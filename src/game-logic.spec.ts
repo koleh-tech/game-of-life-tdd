@@ -3,6 +3,7 @@ import {
 	oldFunc,
 	flattenGridIntoCells,
 	InvalidGameDimensions,
+	createGameStateFrom,
 } from "./grid-logic"
 import type { Cell } from "./cell-logic"
 
@@ -65,7 +66,13 @@ describe("createGameStateFrom", () => {
 	test("brings 2D back", () => {
 		const cell = { state: 0, neighbors: [] }
 		const desiredGrid = [[0, 0, 0]]
-		expect(oldFunc([cell, cell, cell], desiredGrid)).toEqual([[0, 0, 0]])
+		const cellsToExpand = [cell, cell, cell]
+		expect(
+			createGameStateFrom(cellsToExpand, {
+				numRows: desiredGrid.length,
+				numCols: desiredGrid[0].length,
+			}),
+		).toEqual([[0, 0, 0]])
 	})
 
 	test("if no change, order is preserved", () => {
