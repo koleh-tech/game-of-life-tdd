@@ -7,7 +7,13 @@ import {
 import { newStateForCell } from "./cell-logic"
 
 function App() {
-	const [gameBoard, setGameBoard] = useState<number[][]>([[0, 0, 0]])
+	const [gameBoard, setGameBoard] = useState<number[][]>([
+		[0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0],
+		[0, 1, 1, 1, 0],
+		[0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0],
+	])
 
 	//
 	// start looping every half second:
@@ -21,11 +27,12 @@ function App() {
 		}, 1000)
 		return () => clearInterval(interval)
 	})
+	const cellGrid = <pre>{JSON.stringify(gameBoard)}</pre>
 	return (
 		<>
 			<h1>Game of life</h1>
 			<p>Game state</p>
-			<pre>{JSON.stringify(gameBoard)}</pre>
+			{cellGrid}
 		</>
 	)
 }
