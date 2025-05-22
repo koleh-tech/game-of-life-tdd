@@ -34,7 +34,7 @@ export function createGameStateFrom(
 	previousGameState: GameState,
 ) {
 	const previousGrid = previousGameState.board
-	return new GameState(newCreation(cells, previousGrid)).board
+	return newCreation(cells, previousGrid)
 }
 
 function newCreation(cells: Cell[], previousGrid: number[][]) {
