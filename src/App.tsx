@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react"
+import { MdSquare } from "react-icons/md"
 import "./App.css"
 import { createGameStateFrom, flattenGridIntoCells } from "./grid-logic"
 import { CellState, updateCell } from "./cell-logic"
 import { CellGridEditor } from "./cell-grid-editor"
 
 function App() {
+	const [timeBetweenGenerations, setTimeBetweenGenerations] =
+		useState<number>(1000)
 	const [gameBoard, setGameBoard] = useState<CellState[][]>([
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -40,7 +46,7 @@ function App() {
 	}
 
 	function loopEverySecond() {
-		const interval = setInterval(runOneIteration, 1000)
+		const interval = setInterval(runOneIteration, timeBetweenGenerations)
 		return () => clearInterval(interval)
 	}
 
@@ -70,8 +76,13 @@ function App() {
 				<button onClick={() => setRunningState(!runningState)}>
 					{runningState ? "Stop" : "Start"}
 				</button>
-				<button onClick={() => doubleCellGrid()}>✖️2</button>
-				<button onClick={() => halveCellGrid()}>➗2 </button>
+				<button onClick={() => doubleCellGrid()}>🏁 ✖️2</button>
+				<button onClick={() => halveCellGrid()}>🏁 ➗2 </button>
+				<button
+					onClick={() => setTimeBetweenGenerations(timeBetweenGenerations / 2)}
+				>
+					⌛ ➗2{" "}
+				</button>
 			</div>
 			<div className="cellGrid">
 				<table>
@@ -85,12 +96,12 @@ function App() {
 function renderCell(state: number, handleClick: () => void) {
 	const blankCell = (
 		<span className="cellState" role="img" aria-label="life">
-			⬛
+			<MdSquare style={{ color: "#1a1a1a" }} />
 		</span>
 	)
 	const aliveCell = (
 		<span className="cellState" role="img" aria-label="life">
-			🟩
+			<MdSquare style={{ color: "green" }} />
 		</span>
 	)
 	return (
