@@ -73,7 +73,7 @@ function App() {
 				<button onClick={() => doubleCellGrid()}>✖️2</button>
 				<button onClick={() => halveCellGrid()}>➗2 </button>
 			</div>
-			<div>
+			<div className="cellGrid">
 				<table>
 					<tbody>{cellGrid}</tbody>
 				</table>
