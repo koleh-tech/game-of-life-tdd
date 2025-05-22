@@ -35,5 +35,17 @@ export function createGameStateFrom(cells: Cell[], previousGrid: number[][]) {
 		const endOfSlice = (row + 1) * numCols
 		result.push(cellStates.slice(startOfSlice, endOfSlice))
 	}
+	newFunc(cells, numRows, numCols)
+	return result
+}
+
+function newFunc(cells: Cell[], numRows: number, numCols: number) {
+	const cellStates = cells.map((cell) => cell.state)
+	const result = []
+	for (let row = 0; row < numRows; row++) {
+		const startOfSlice = row * numCols
+		const endOfSlice = (row + 1) * numCols
+		result.push(cellStates.slice(startOfSlice, endOfSlice))
+	}
 	return result
 }
