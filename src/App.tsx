@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, type Key } from "react"
 import "./App.css"
 import { createGameStateFrom, GameState } from "./game-logic"
 import { updateCell } from "./cell-logic"
@@ -36,8 +36,8 @@ function App() {
 	const cellGrid = (
 		<table>
 			<tbody>
-				{gameBoard.map((row) => (
-					<tr>{row.map(renderCell)}</tr>
+				{gameBoard.map((row, index) => (
+					<tr key={index}>{row.map(renderCell)}</tr>
 				))}
 			</tbody>
 		</table>
@@ -55,7 +55,7 @@ function App() {
 	)
 }
 
-function renderCell(state: number) {
+function renderCell(state: number, colNum: number) {
 	const blankCell = (
 		<span className="cellState" role="img" aria-label="life">
 			⬛
@@ -66,7 +66,7 @@ function renderCell(state: number) {
 			🟩
 		</span>
 	)
-	return <td>{state === 1 ? lifeEmoji : blankCell}</td>
+	return <td key={colNum}>{state === 1 ? lifeEmoji : blankCell}</td>
 }
 
 export default App
