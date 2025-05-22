@@ -4,7 +4,8 @@ export interface Cell {
 }
 
 function isAlive(cell: Cell) {
-	return cell.neighbors.length === 2 || cell.neighbors.length === 3
+	const aliveNeighbors = cell.neighbors.filter((neighbor) => neighbor === 1)
+	return aliveNeighbors.length === 2 || aliveNeighbors.length === 3
 }
 
 export function newStateForCell(cell: Cell) {

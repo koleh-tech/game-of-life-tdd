@@ -3,7 +3,7 @@ import { newStateForCell } from "./cell-logic"
 
 describe("stateForCell", () => {
 	test("1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.", () => {
-		expect(newStateForCell({ state: 1, neighbors: [] }).state).toBe(0)
+		expect(newStateForCell({ state: 1, neighbors: [0, 0] }).state).toBe(0)
 		expect(newStateForCell({ state: 1, neighbors: [0] }).state).toBe(0)
 	})
 
