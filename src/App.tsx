@@ -24,7 +24,7 @@ function App() {
 	function runOneIteration() {
 		const previousGeneration = new GameState(gameBoard)
 		const nextGeneration = flattenGridIntoCells(gameBoard).map(updateCell)
-		setGameBoard(createGameStateFrom(nextGeneration, previousGeneration).board)
+		setGameBoard(createGameStateFrom(nextGeneration, previousGeneration))
 	}
 
 	function loopEverySecond() {
