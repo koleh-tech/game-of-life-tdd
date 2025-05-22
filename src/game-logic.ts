@@ -1,4 +1,4 @@
-import type { Cell } from "./cell-logic"
+import type { Cell, CellState } from "./cell-logic"
 
 export class InvalidGameDimensions extends Error {}
 
@@ -6,7 +6,7 @@ export class GameState {
 	constructor(public board: number[][]) {}
 }
 
-export function flattenGridIntoCells(grid: number[][]) {
+export function flattenGridIntoCells(grid: CellState[][]) {
 	if (grid.length <= 1 && !grid[0].length) {
 		throw new InvalidGameDimensions("Invalid game dimensions")
 	}

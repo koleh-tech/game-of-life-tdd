@@ -1,3 +1,7 @@
+export enum CellState {
+	ALIVE = 1,
+	DEAD = 0,
+}
 export interface Cell {
 	state: number
 	neighbors: number[]
@@ -6,7 +10,7 @@ export interface Cell {
 export function updateCell(cell: Cell) {
 	return {
 		...cell,
-		state: willLive(cell) ? 1 : 0,
+		state: willLive(cell) ? CellState.ALIVE : 0,
 	}
 }
 
@@ -19,5 +23,5 @@ function willLive(cell: Cell) {
 }
 
 function livingNeighborsFor(cell: Cell) {
-	return cell.neighbors.filter((neighbor) => neighbor === 1)
+	return cell.neighbors.filter((neighbor) => neighbor === CellState.ALIVE)
 }

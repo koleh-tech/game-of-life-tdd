@@ -1,10 +1,6 @@
-import { useEffect, useState, type Key } from "react"
+import { useEffect, useState } from "react"
 import "./App.css"
-import {
-	createGameStateFrom,
-	flattenGridIntoCells,
-	GameState,
-} from "./game-logic"
+import { createGameStateFrom, flattenGridIntoCells } from "./game-logic"
 import { updateCell } from "./cell-logic"
 
 function App() {
@@ -47,7 +43,6 @@ function App() {
 	)
 	return (
 		<>
-			<h1>Game of life</h1>
 			<div className="card">
 				<button onClick={() => setRunningState(!runningState)}>
 					{runningState ? "Stop" : "Start"}
