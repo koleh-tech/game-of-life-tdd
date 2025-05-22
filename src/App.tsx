@@ -77,30 +77,37 @@ function App() {
 		</tr>
 	))
 
+	const gridControls = (
+		<div className="card">
+			<button onClick={() => setRunningState(!runningState)}>
+				{runningState ? "Stop" : "Start"}
+			</button>
+			<button onClick={() => doubleCellGrid()} title="Double the grid size">
+				<MdOutlineGridOn />
+			</button>
+			<button onClick={() => halveCellGrid()} title="Halve the grid size">
+				<MdOutlineGridView />
+			</button>
+			<button
+				onClick={() => setTimeBetweenGenerations(timeBetweenGenerations * 2)}
+				title="Double the time between generations"
+			>
+				<MdOutlineFastRewind />
+			</button>
+			<button
+				onClick={() => setTimeBetweenGenerations(timeBetweenGenerations / 2)}
+				title="Halve the time between generations"
+			>
+				<MdFastForward />
+			</button>
+		</div>
+	)
 	return (
 		<>
-			<div className="card">
-				<button onClick={() => setRunningState(!runningState)}>
-					{runningState ? "Stop" : "Start"}
-				</button>
-				<button onClick={() => doubleCellGrid()} title="Double the grid size">
-					<MdOutlineGridOn />
-				</button>
-				<button onClick={() => halveCellGrid()} title="Halve the grid size">
-					<MdOutlineGridView />
-				</button>
-				<button
-					onClick={() => setTimeBetweenGenerations(timeBetweenGenerations * 2)}
-					title="Double the time between generations"
-				>
-					<MdOutlineFastRewind />
-				</button>
-				<button
-					onClick={() => setTimeBetweenGenerations(timeBetweenGenerations / 2)}
-					title="Halve the time between generations"
-				>
-					<MdFastForward />
-				</button>
+			{gridControls}
+			<div className="read-the-docs">
+				Time between generations:{" "}
+				{Math.round(timeBetweenGenerations / 1000) / 100} seconds
 			</div>
 			<div className="cellGrid">
 				<table>

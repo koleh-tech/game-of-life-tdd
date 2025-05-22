@@ -34,20 +34,24 @@
 .card {
 	filter: drop-shadow(0 0 1em #646cffaa);
 	position: absolute;
-	top: 1rem;
 	padding: 2rem;
+	top: 1rem;
 	left: 10px;
 }
 
 .read-the-docs {
+	padding: 2rem;
+	position: absolute;
 	color: #888;
+	top: 5rem;
+	left: 10px;
 }
 
 .cellGrid {
 	border-radius: 10px;
 	padding: 2rem;
 	position: absolute;
-	top: 6rem;
+	top: 7rem;
 	left: 10px;
 }
 
