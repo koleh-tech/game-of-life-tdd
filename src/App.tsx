@@ -4,7 +4,6 @@ import {
 	MdOutlineFastRewind,
 	MdOutlineGridOn,
 	MdOutlineGridView,
-	MdSquare,
 } from "react-icons/md"
 import "./App.css"
 import { flattenGridIntoCells, expand } from "./grid-logic"
@@ -13,7 +12,7 @@ import { CellGridEditor } from "./cell-grid-editor"
 
 function App() {
 	const [timeBetweenGenerations, setTimeBetweenGenerations] =
-		useState<number>(1000)
+		useState<number>(500)
 	const [gameBoard, setGameBoard] = useState<CellState[][]>(INITIAL_GAME_STATE)
 	const [runningState, setRunningState] = useState(false)
 
