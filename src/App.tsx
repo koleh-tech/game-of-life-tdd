@@ -16,6 +16,7 @@ function App() {
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	])
+
 	const [runningState, setRunningState] = useState(false)
 
 	function runOneIteration() {
@@ -33,7 +34,7 @@ function App() {
 		return loopEverySecond()
 	})
 
-	function renderCell(state: number, colNum: number, rowNum: number) {
+	function renderCell(state: number, handleClick: () => void) {
 		const blankCell = (
 			<span className="cellState" role="img" aria-label="life">
 				⬛
@@ -45,16 +46,7 @@ function App() {
 			</span>
 		)
 		return (
-			<td
-				onClick={() =>
-					setGameBoard(
-						new CellGridEditor(gameBoard).withInvertedCellStateAt({
-							row: rowNum,
-							col: colNum,
-						}),
-					)
-				}
-			>
+			<td onClick={() => handleClick()}>
 				{state === CellState.ALIVE ? lifeEmoji : blankCell}
 			</td>
 		)
@@ -66,7 +58,14 @@ function App() {
 				{gameBoard.map((row, rowNum) => (
 					<tr>
 						{row.map((cellState, colNum) =>
-							renderCell(cellState, colNum, rowNum),
+							renderCell(cellState, () =>
+								setGameBoard(
+									new CellGridEditor(gameBoard).withInvertedCellStateAt({
+										row: rowNum,
+										col: colNum,
+									}),
+								),
+							),
 						)}
 					</tr>
 				))}
