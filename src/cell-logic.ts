@@ -4,5 +4,8 @@ export interface Cell {
 }
 
 export function newStateForCell(cell: Cell) {
-	return { ...cell, state: cell.neighbors.length === 2 ? 1 : 0 }
+	return {
+		...cell,
+		state: cell.neighbors.length === 2 || cell.neighbors.length === 3 ? 1 : 0,
+	}
 }
