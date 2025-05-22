@@ -38,8 +38,8 @@ function App() {
 	)
 	return (
 		<>
-			<div className="controls">
-				<h1>Game of life</h1>
+			<h1>Game of life</h1>
+			<div className="card">
 				<button onClick={() => setRunningState(!runningState)}>
 					{runningState ? "Stop" : "Start"}
 				</button>
