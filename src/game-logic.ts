@@ -6,6 +6,7 @@ export class GameState {
 	constructor(public board: number[][]) {}
 
 	flatten(): Cell[] {
+		flattenGridIntoCells(this.board)
 		if (this.board.length <= 1 && !this.board[0].length) {
 			throw new InvalidGameDimensions("Invalid game dimensions")
 		}
@@ -28,6 +29,8 @@ export class GameState {
 		return result
 	}
 }
+
+export function flattenGridIntoCells(grid: number[][]) {}
 
 export function createGameStateFrom(
 	cells: Cell[],
