@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react"
 import "./App.css"
-import {
-	createGameStateFrom as createGameStateFrom,
-	GameState,
-} from "./game-logic"
+import { createGameStateFrom, GameState } from "./game-logic"
 import { updateCell } from "./cell-logic"
 
 function App() {
@@ -15,9 +12,7 @@ function App() {
 		[0, 0, 0, 0, 0],
 	])
 
-	//
-	// start looping every half second:
-	useEffect(() => {
+	function loopEverySecond() {
 		const interval = setInterval(() => {
 			const previousGeneration = new GameState(gameBoard)
 			const nextGeneration = previousGeneration.flatten().map(updateCell)
@@ -26,7 +21,12 @@ function App() {
 			)
 		}, 1000)
 		return () => clearInterval(interval)
+	}
+
+	useEffect(() => {
+		return loopEverySecond()
 	})
+
 	const cellGrid = (
 		<table>
 			{gameBoard.map((row) => (
