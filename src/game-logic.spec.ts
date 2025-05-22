@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest"
 import {
 	flattenGridIntoCells,
 	InvalidGameDimensions,
-	createGameStateFrom,
+	expand,
 } from "./grid-logic"
 import type { Cell } from "./cell-logic"
 
@@ -67,7 +67,7 @@ describe("createGameStateFrom", () => {
 		const desiredGrid = [[0, 0, 0]]
 		const cellsToExpand = [cell, cell, cell]
 		expect(
-			createGameStateFrom(cellsToExpand, {
+			expand(cellsToExpand, {
 				numRows: desiredGrid.length,
 				numCols: desiredGrid[0].length,
 			}),
@@ -94,7 +94,7 @@ describe("createGameStateFrom", () => {
 			[0, 0, 0],
 		]
 		expect(
-			createGameStateFrom(cellsToExpand, {
+			expand(cellsToExpand, {
 				numRows: desiredGrid.length,
 				numCols: desiredGrid[0].length,
 			}),

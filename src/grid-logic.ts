@@ -26,17 +26,17 @@ export function flattenGridIntoCells(grid: CellState[][]) {
 }
 
 export function oldFunc(cellsToExpand: Cell[], desiredGrid: number[][]) {
-	return createGameStateFrom(cellsToExpand, {
+	return expand(cellsToExpand, {
 		numRows: desiredGrid.length,
 		numCols: desiredGrid[0].length,
 	})
 }
 
-export function createGameStateFrom(
-	cells: Cell[],
+export function expand(
+	cellsToExpand: Cell[],
 	{ numRows, numCols }: { numRows: number; numCols: number },
 ) {
-	const cellStates = cells.map((cell) => cell.state)
+	const cellStates = cellsToExpand.map((cell) => cell.state)
 	const result = []
 	for (let row = 0; row < numRows; row++) {
 		const startOfSlice = row * numCols
