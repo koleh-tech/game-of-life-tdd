@@ -1,6 +1,5 @@
 import { describe, expect, test } from "vitest"
 import {
-	oldFunc,
 	flattenGridIntoCells,
 	InvalidGameDimensions,
 	expand,
@@ -78,29 +77,27 @@ describe("createGameStateFrom", () => {
 	test("if no change, order is preserved", () => {
 		const deadCell = { state: 0, neighbors: [] }
 		const aliveCell = { state: 1, neighbors: [] }
-		expect(
-			oldFunc(
-				[
-					deadCell,
-					deadCell,
-					deadCell,
-					deadCell,
-					aliveCell,
-					deadCell,
-					deadCell,
-					deadCell,
-					deadCell,
-				],
-				[
-					[0, 0, 0],
-					[0, 1, 0],
-					[0, 0, 0],
-				],
-			),
-		).toEqual([
+		const cellsToExpand = [
+			deadCell,
+			deadCell,
+			deadCell,
+			deadCell,
+			aliveCell,
+			deadCell,
+			deadCell,
+			deadCell,
+			deadCell,
+		]
+		const desiredGrid = [
 			[0, 0, 0],
 			[0, 1, 0],
 			[0, 0, 0],
-		])
+		]
+		expect(
+			expand(cellsToExpand, {
+				numRows: desiredGrid.length,
+				numCols: desiredGrid[0].length,
+			}),
+		).toEqual(desiredGrid)
 	})
 })
