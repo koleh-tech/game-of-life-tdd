@@ -4,11 +4,6 @@ export class InvalidGameDimensions extends Error {}
 
 export class GameState {
 	constructor(public board: number[][]) {}
-
-	flatten(): Cell[] {
-		const grid = this.board
-		return flattenGridIntoCells(grid)
-	}
 }
 
 export function flattenGridIntoCells(grid: number[][]) {
@@ -38,6 +33,7 @@ export function createGameStateFrom(
 	cells: Cell[],
 	previousGameState: GameState,
 ) {
+	newCreation(cells, previousGameState.board)
 	const numCols = previousGameState.board[0].length
 	const cellStates = cells.map((cell) => cell.state)
 	const result = []
@@ -47,4 +43,8 @@ export function createGameStateFrom(
 		result.push(cellStates.slice(startOfSlice, endOfSlice))
 	}
 	return new GameState(result)
+}
+
+function newCreation(cells: Cell[], previousGrid: number[][]) {
+	return previousGrid
 }
