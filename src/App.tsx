@@ -27,7 +27,13 @@ function App() {
 		}, 1000)
 		return () => clearInterval(interval)
 	})
-	const cellGrid = <pre>{JSON.stringify(gameBoard)}</pre>
+	const cellGrid = (
+		<table>
+			{gameBoard.map((row) => (
+				<tr>{row.map(renderCell)}</tr>
+			))}
+		</table>
+	)
 	return (
 		<>
 			<h1>Game of life</h1>
@@ -35,6 +41,10 @@ function App() {
 			{cellGrid}
 		</>
 	)
+}
+
+function renderCell(state: number) {
+	return <td>{state === 1 ? "■" : "□"}</td>
 }
 
 export default App
