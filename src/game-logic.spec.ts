@@ -14,6 +14,9 @@ describe("GameState flatten", () => {
 	test("flattens game state to 1D", () => {
 		expect(new GameState([[0, 0]]).flatten().length).toEqual(2)
 	})
+	test("goes left to right", () => {
+		expect(new GameState([[0, 1, 0]]).flatten()[1].state).toEqual(1)
+	})
 })
 
 describe("GameState flatten neighboring cell population", () => {
