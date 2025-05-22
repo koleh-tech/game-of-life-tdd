@@ -7,7 +7,7 @@ import {
 	MdSquare,
 } from "react-icons/md"
 import "./App.css"
-import { oldFunc, flattenGridIntoCells } from "./grid-logic"
+import { oldFunc, flattenGridIntoCells, expand } from "./grid-logic"
 import { CellState, updateCell } from "./cell-logic"
 import { CellGridEditor } from "./cell-grid-editor"
 
@@ -48,7 +48,12 @@ function App() {
 
 	function runOneIteration() {
 		const nextGeneration = flattenGridIntoCells(gameBoard).map(updateCell)
-		setGameBoard(oldFunc(nextGeneration, gameBoard))
+		setGameBoard(
+			expand(nextGeneration, {
+				numRows: gameBoard.length,
+				numCols: gameBoard[0].length,
+			}),
+		)
 	}
 
 	function loopEverySecond() {
