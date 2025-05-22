@@ -18,16 +18,16 @@ describe("GameState flatten", () => {
 
 	describe("order goes", () => {
 		test("left to right", () => {
-			expect(new GameState([[0, 1, 0]]).flatten()[1].state).toEqual(1)
+			expect(flattenGridIntoCells([[0, 1, 0]])[1].state).toEqual(1)
 		})
 
 		test("top down", () => {
 			expect(
-				new GameState([
+				flattenGridIntoCells([
 					[0, 0],
 					[0, 1],
 					[1, 1],
-				]).flatten()[4].state,
+				])[4].state,
 			).toEqual(1)
 		})
 	})
