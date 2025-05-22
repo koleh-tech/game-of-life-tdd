@@ -48,9 +48,10 @@ table {
 	height: 100%;
 }
 
-tr,
-td {
-	height: 100%;
-	border: 1px solid black;
+tbody {
 	corner-radius: 5px;
+}
+
+.cellState {
+	font-size: 2em;
 }

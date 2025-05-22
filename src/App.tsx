@@ -5,11 +5,15 @@ import { updateCell } from "./cell-logic"
 
 function App() {
 	const [gameBoard, setGameBoard] = useState<number[][]>([
-		[0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0],
-		[0, 1, 1, 1, 0],
-		[0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	])
 	const [runningState, setRunningState] = useState(false)
 
@@ -31,9 +35,11 @@ function App() {
 
 	const cellGrid = (
 		<table>
-			{gameBoard.map((row) => (
-				<tr>{row.map(renderCell)}</tr>
-			))}
+			<tbody>
+				{gameBoard.map((row) => (
+					<tr>{row.map(renderCell)}</tr>
+				))}
+			</tbody>
 		</table>
 	)
 	return (
@@ -51,12 +57,12 @@ function App() {
 
 function renderCell(state: number) {
 	const blankCell = (
-		<span role="img" aria-label="life">
+		<span className="cellState" role="img" aria-label="life">
 			⬛
 		</span>
 	)
 	const lifeEmoji = (
-		<span role="img" aria-label="life">
+		<span className="cellState" role="img" aria-label="life">
 			🟩
 		</span>
 	)
