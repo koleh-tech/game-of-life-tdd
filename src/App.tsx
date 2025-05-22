@@ -52,20 +52,35 @@ function App() {
 		return loopEverySecond()
 	})
 
-	const cellGrid = gameBoard.map((row, rowNum) => (
-		<tr>
-			{row.map((cellState, colNum) => {
-				const handleCellClick = () =>
-					setGameBoard(
-						new CellGridEditor(gameBoard).withInvertedCellStateAt({
-							row: rowNum,
-							col: colNum,
-						}),
+	const numCols = gameBoard[0]?.length || 0
+
+	const cellGrid = (
+		<div
+			className="grid"
+			style={{ gridTemplateColumns: `repeat(${numCols}, 20px)` }}
+		>
+			{gameBoard.map((row, rowNum) =>
+				row.map((cellState, colNum) => {
+					const handleCellClick = () =>
+						setGameBoard(
+							new CellGridEditor(gameBoard).withInvertedCellStateAt({
+								row: rowNum,
+								col: colNum,
+							}),
+						)
+					return (
+						<div
+							key={`cell-${rowNum}-${colNum}`}
+							className={
+								cellState === CellState.ALIVE ? "cell alive" : "cell dead"
+							}
+							onClick={handleCellClick}
+						/>
 					)
-				return renderCell(cellState, handleCellClick)
-			})}
-		</tr>
-	))
+				}),
+			)}
+		</div>
+	)
 
 	const gridControls = (
 		<div className="card">
@@ -99,30 +114,19 @@ function App() {
 				Time between generations:{" "}
 				{Math.round(timeBetweenGenerations / 10) / 100} seconds
 			</div>
-			<div className="cellGrid">
-				<table>
-					<tbody>{cellGrid}</tbody>
-				</table>
-			</div>
+			{cellGrid}
 		</>
 	)
 }
 
 function renderCell(state: number, handleClick: () => void) {
-	const blankCell = (
-		<span className="cellState" role="img" aria-label="life">
-			<MdSquare style={{ color: "#1a1a1a" }} />
-		</span>
-	)
-	const aliveCell = (
-		<span className="cellState" role="img" aria-label="life">
-			<MdSquare style={{ color: "green" }} />
-		</span>
-	)
+	const blankCell = "container dead"
+	const aliveCell = "container alive"
 	return (
-		<td onClick={() => handleClick()}>
-			{state === CellState.ALIVE ? aliveCell : blankCell}
-		</td>
+		<div
+			className={state === CellState.ALIVE ? aliveCell : blankCell}
+			onClick={() => handleClick()}
+		></div>
 	)
 }
 
