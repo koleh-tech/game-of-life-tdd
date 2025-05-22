@@ -1,6 +1,7 @@
 import { describe, expect, test } from "vitest"
 import {
 	createGameStateFrom,
+	flattenGridIntoCells,
 	GameState,
 	InvalidGameDimensions,
 } from "./game-logic"
@@ -8,11 +9,11 @@ import type { Cell } from "./cell-logic"
 
 describe("GameState flatten", () => {
 	test("throws error if game dimensions invalid", () => {
-		expect(() => new GameState([[]]).flatten()).toThrow(InvalidGameDimensions)
+		expect(() => flattenGridIntoCells([[]])).toThrow(InvalidGameDimensions)
 	})
 
 	test("flattens game state to 1D", () => {
-		expect(new GameState([[0, 0]]).flatten().length).toEqual(2)
+		expect(flattenGridIntoCells([[0, 0]]).length).toEqual(2)
 	})
 
 	describe("order goes", () => {
