@@ -26,9 +26,10 @@ export function flattenGridIntoCells(grid: CellState[][]) {
 }
 
 export function oldFunc(cells: Cell[], desiredGrid: number[][]) {
-	const numRows = desiredGrid.length
-	const numCols = desiredGrid[0].length
-	return createGameStateFrom(cells, { numRows, numCols })
+	return createGameStateFrom(cells, {
+		numRows: desiredGrid.length,
+		numCols: desiredGrid[0].length,
+	})
 }
 
 function createGameStateFrom(
