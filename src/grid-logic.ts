@@ -25,9 +25,14 @@ export function flattenGridIntoCells(grid: CellState[][]) {
 	return result
 }
 
+export type GridDimensions = {
+	numRows: number
+	numCols: number
+}
+
 export function expand(
 	cellsToExpand: Cell[],
-	{ numRows, numCols }: { numRows: number; numCols: number },
+	{ numRows, numCols }: GridDimensions,
 ) {
 	const cellStates = cellsToExpand.map((cell) => cell.state)
 	const result = []

@@ -8,27 +8,13 @@ import {
 } from "react-icons/md"
 import "./App.css"
 import { flattenGridIntoCells, expand } from "./grid-logic"
-import { CellState, updateCell } from "./cell-logic"
+import { CellState, INITIAL_GAME_STATE, updateCell } from "./cell-logic"
 import { CellGridEditor } from "./cell-grid-editor"
 
 function App() {
 	const [timeBetweenGenerations, setTimeBetweenGenerations] =
 		useState<number>(1000)
-	const [gameBoard, setGameBoard] = useState<CellState[][]>([
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	])
-
+	const [gameBoard, setGameBoard] = useState<CellState[][]>(INITIAL_GAME_STATE)
 	const [runningState, setRunningState] = useState(false)
 
 	function doubleCellGrid() {
