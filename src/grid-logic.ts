@@ -2,7 +2,7 @@ import type { Cell, CellState } from "./cell-logic"
 
 export class InvalidGameDimensions extends Error {}
 
-export class GameState {
+export class CellGridEditor {
 	constructor(public board: CellState[][]) {}
 }
 

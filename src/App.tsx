@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import "./App.css"
-import { createGameStateFrom, flattenGridIntoCells } from "./game-logic"
+import { createGameStateFrom, flattenGridIntoCells } from "./grid-logic"
 import { CellState, updateCell } from "./cell-logic"
 
 function App() {
