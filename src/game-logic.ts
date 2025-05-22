@@ -34,10 +34,6 @@ export function createGameStateFrom(
 	previousGameState: GameState,
 ) {
 	const previousGrid = previousGameState.board
-	return newCreation(cells, previousGrid)
-}
-
-function newCreation(cells: Cell[], previousGrid: number[][]) {
 	const numCols = previousGrid[0].length
 	const cellStates = cells.map((cell) => cell.state)
 	const result = []
