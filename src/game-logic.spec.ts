@@ -65,9 +65,9 @@ describe("GameState flatten neighboring cell population", () => {
 describe("createGameStateFrom", () => {
 	test("brings 2D back", () => {
 		const cell = { state: 0, neighbors: [] }
-		expect(
-			createGameStateFrom([cell, cell, cell], new GameState([[0, 0, 0]])),
-		).toEqual([[0, 0, 0]])
+		expect(createGameStateFrom([cell, cell, cell], [[0, 0, 0]])).toEqual([
+			[0, 0, 0],
+		])
 	})
 
 	test("if no change, order is preserved", () => {
@@ -86,11 +86,11 @@ describe("createGameStateFrom", () => {
 					deadCell,
 					deadCell,
 				],
-				new GameState([
+				[
 					[0, 0, 0],
 					[0, 1, 0],
 					[0, 0, 0],
-				]),
+				],
 			),
 		).toEqual([
 			[0, 0, 0],
