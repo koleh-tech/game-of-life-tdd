@@ -19,6 +19,21 @@ function App() {
 
 	const [runningState, setRunningState] = useState(false)
 
+	function doubleCellGrid() {
+		setGameBoard([
+			...gameBoard.map((row) => [...row, ...row]),
+			...gameBoard.map((row) => [...row, ...row]),
+		])
+	}
+
+	function halveCellGrid() {
+		setGameBoard(
+			gameBoard
+				.map((row) => row.slice(0, row.length / 2))
+				.slice(0, gameBoard.length / 2),
+		)
+	}
+
 	function runOneIteration() {
 		const nextGeneration = flattenGridIntoCells(gameBoard).map(updateCell)
 		setGameBoard(createGameStateFrom(nextGeneration, gameBoard))
@@ -34,53 +49,54 @@ function App() {
 		return loopEverySecond()
 	})
 
-	function renderCell(state: number, handleClick: () => void) {
-		const blankCell = (
-			<span className="cellState" role="img" aria-label="life">
-				⬛
-			</span>
-		)
-		const lifeEmoji = (
-			<span className="cellState" role="img" aria-label="life">
-				🟩
-			</span>
-		)
-		return (
-			<td onClick={() => handleClick()}>
-				{state === CellState.ALIVE ? lifeEmoji : blankCell}
-			</td>
-		)
-	}
+	const cellGrid = gameBoard.map((row, rowNum) => (
+		<tr>
+			{row.map((cellState, colNum) => {
+				const handleCellClick = () =>
+					setGameBoard(
+						new CellGridEditor(gameBoard).withInvertedCellStateAt({
+							row: rowNum,
+							col: colNum,
+						}),
+					)
+				return renderCell(cellState, handleCellClick)
+			})}
+		</tr>
+	))
 
-	const cellGrid = (
-		<table>
-			<tbody>
-				{gameBoard.map((row, rowNum) => (
-					<tr>
-						{row.map((cellState, colNum) =>
-							renderCell(cellState, () =>
-								setGameBoard(
-									new CellGridEditor(gameBoard).withInvertedCellStateAt({
-										row: rowNum,
-										col: colNum,
-									}),
-								),
-							),
-						)}
-					</tr>
-				))}
-			</tbody>
-		</table>
-	)
 	return (
 		<>
 			<div className="card">
 				<button onClick={() => setRunningState(!runningState)}>
 					{runningState ? "Stop" : "Start"}
 				</button>
+				<button onClick={() => doubleCellGrid()}>✖️2</button>
+				<button onClick={() => halveCellGrid()}>➗2 </button>
 			</div>
-			<div>{cellGrid}</div>
+			<div>
+				<table>
+					<tbody>{cellGrid}</tbody>
+				</table>
+			</div>
 		</>
+	)
+}
+
+function renderCell(state: number, handleClick: () => void) {
+	const blankCell = (
+		<span className="cellState" role="img" aria-label="life">
+			⬛
+		</span>
+	)
+	const aliveCell = (
+		<span className="cellState" role="img" aria-label="life">
+			🟩
+		</span>
+	)
+	return (
+		<td onClick={() => handleClick()}>
+			{state === CellState.ALIVE ? aliveCell : blankCell}
+		</td>
 	)
 }
 
