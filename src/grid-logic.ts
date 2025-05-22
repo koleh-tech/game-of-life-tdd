@@ -25,13 +25,6 @@ export function flattenGridIntoCells(grid: CellState[][]) {
 	return result
 }
 
-export function oldFunc(cellsToExpand: Cell[], desiredGrid: number[][]) {
-	return expand(cellsToExpand, {
-		numRows: desiredGrid.length,
-		numCols: desiredGrid[0].length,
-	})
-}
-
 export function expand(
 	cellsToExpand: Cell[],
 	{ numRows, numCols }: { numRows: number; numCols: number },

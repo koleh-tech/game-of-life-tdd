@@ -7,7 +7,7 @@ import {
 	MdSquare,
 } from "react-icons/md"
 import "./App.css"
-import { oldFunc, flattenGridIntoCells, expand } from "./grid-logic"
+import { flattenGridIntoCells, expand } from "./grid-logic"
 import { CellState, updateCell } from "./cell-logic"
 import { CellGridEditor } from "./cell-grid-editor"
 
