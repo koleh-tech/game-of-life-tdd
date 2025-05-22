@@ -4,7 +4,7 @@ import {
 	createGameStateFrom as createGameStateFrom,
 	GameState,
 } from "./game-logic"
-import { newStateForCell } from "./cell-logic"
+import { updateCell } from "./cell-logic"
 
 function App() {
 	const [gameBoard, setGameBoard] = useState<number[][]>([
@@ -20,7 +20,7 @@ function App() {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			const previousGeneration = new GameState(gameBoard)
-			const nextGeneration = previousGeneration.flatten().map(newStateForCell)
+			const nextGeneration = previousGeneration.flatten().map(updateCell)
 			setGameBoard(
 				createGameStateFrom(nextGeneration, previousGeneration).board,
 			)

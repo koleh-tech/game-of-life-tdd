@@ -3,19 +3,15 @@ export interface Cell {
 	neighbors: number[]
 }
 
-function isAlive(cell: Cell) {
+function willLive(cell: Cell) {
 	const aliveNeighbors = cell.neighbors.filter((neighbor) => neighbor === 1)
+	if (cell.state === 0) return aliveNeighbors.length === 3
 	return aliveNeighbors.length === 2 || aliveNeighbors.length === 3
 }
 
-export function newStateForCell(cell: Cell) {
-	if (cell.state === 1) {
-		cell.neighbors
-		// __AUTO_GENERATED_PRINT_VAR_START__
-		console.log("newStateForCell#if cell.neighbors: %s", cell.neighbors) // __AUTO_GENERATED_PRINT_VAR_END__
-	}
+export function updateCell(cell: Cell) {
 	return {
 		...cell,
-		state: isAlive(cell) ? 1 : 0,
+		state: willLive(cell) ? 1 : 0,
 	}
 }
