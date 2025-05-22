@@ -7,8 +7,8 @@ describe("stateForCell", () => {
 		expect(newStateForCell({ state: 1, neighbors: [1, 0] }).state).toBe(0)
 	})
 
-	test.skip("2. Any live cell with more than three live neighbours dies, as if by overcrowding.", () => {
-		expect(newStateForCell({ state: 1, neighbors: [0, 0, 0, 0] }).state).toBe(0)
+	test("2. Any live cell with more than three live neighbours dies, as if by overcrowding.", () => {
+		expect(newStateForCell({ state: 1, neighbors: [1, 1, 1, 1] }).state).toBe(0)
 	})
 
 	test.skip("3. Any live cell with two or three live neighbours lives on to the next generation.", () => {
