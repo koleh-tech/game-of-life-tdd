@@ -3,7 +3,7 @@ import type { Cell, CellState } from "./cell-logic"
 export class InvalidGameDimensions extends Error {}
 
 export class GameState {
-	constructor(public board: number[][]) {}
+	constructor(public board: CellState[][]) {}
 }
 
 export function flattenGridIntoCells(grid: CellState[][]) {

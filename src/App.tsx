@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import "./App.css"
 import { createGameStateFrom, flattenGridIntoCells } from "./game-logic"
-import { updateCell } from "./cell-logic"
+import { CellState, updateCell } from "./cell-logic"
 
 function App() {
-	const [gameBoard, setGameBoard] = useState<number[][]>([
+	const [gameBoard, setGameBoard] = useState<CellState[][]>([
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -64,7 +64,9 @@ function renderCell(state: number, colNum: number) {
 			🟩
 		</span>
 	)
-	return <td key={colNum}>{state === 1 ? lifeEmoji : blankCell}</td>
+	return (
+		<td key={colNum}>{state === CellState.ALIVE ? lifeEmoji : blankCell}</td>
+	)
 }
 
 export default App
