@@ -2,7 +2,6 @@ import { describe, expect, test } from "vitest"
 import {
 	createGameStateFrom,
 	flattenGridIntoCells,
-	GameState,
 	InvalidGameDimensions,
 } from "./game-logic"
 import type { Cell } from "./cell-logic"
