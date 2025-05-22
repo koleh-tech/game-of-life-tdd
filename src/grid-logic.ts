@@ -2,21 +2,6 @@ import type { Cell, CellState } from "./cell-logic"
 
 export class InvalidGameDimensions extends Error {}
 
-export type Coordinate = {
-	row: number
-	col: number
-}
-
-export class CellGridEditor {
-	constructor(public readonly originalGrid: CellState[][]) {}
-
-	invertCellStateAtCoordinate(arg0: Coordinate) {
-		const result = this.originalGrid.map((row) => [...row])
-		result[arg0.row][arg0.col] = result[arg0.row][arg0.col] === 0 ? 1 : 0
-		return result
-	}
-}
-
 export function flattenGridIntoCells(grid: CellState[][]) {
 	if (grid.length <= 1 && !grid[0].length) {
 		throw new InvalidGameDimensions("Invalid game dimensions")
