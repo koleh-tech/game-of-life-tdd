@@ -29,14 +29,7 @@ export function flattenGridIntoCells(grid: number[][]) {
 	return result
 }
 
-export function createGameStateFrom(
-	cells: Cell[],
-	previousGameState: number[][],
-) {
-	return newCreation(cells, previousGameState)
-}
-
-function newCreation(cells: Cell[], previousGrid: number[][]) {
+export function createGameStateFrom(cells: Cell[], previousGrid: number[][]) {
 	const numCols = previousGrid[0].length
 	const cellStates = cells.map((cell) => cell.state)
 	const result = []
