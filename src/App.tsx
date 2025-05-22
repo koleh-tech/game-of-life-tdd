@@ -11,6 +11,7 @@ function App() {
 		[0, 0, 0, 0, 0],
 		[0, 0, 0, 0, 0],
 	])
+	const [runningState, setRunningState] = useState(false)
 
 	function loopEverySecond() {
 		const interval = setInterval(() => {
@@ -34,21 +35,31 @@ function App() {
 			))}
 		</table>
 	)
-	return <>{cellGrid}</>
+	return (
+		<>
+			<div className="controls">
+				<h1>Game of life</h1>
+				<button onClick={() => setRunningState(!runningState)}>
+					{runningState ? "Stop" : "Start"}
+				</button>
+			</div>
+			<div>{cellGrid}</div>
+		</>
+	)
 }
 
 function renderCell(state: number) {
-	const skullEmoji = (
-		<span role="img" aria-label="skull">
-			💀
+	const blankCell = (
+		<span role="img" aria-label="life">
+			⬛
 		</span>
 	)
 	const lifeEmoji = (
 		<span role="img" aria-label="life">
-			❤️
+			🟩
 		</span>
 	)
-	return <td>{state === 1 ? lifeEmoji : skullEmoji}</td>
+	return <td>{state === 1 ? lifeEmoji : blankCell}</td>
 }
 
 export default App
