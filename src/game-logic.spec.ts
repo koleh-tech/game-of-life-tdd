@@ -36,17 +36,17 @@ describe("GameState flatten", () => {
 describe("GameState flatten neighboring cell population", () => {
 	test("no neighbors", () => {
 		const expected: Cell = { state: 0, neighbors: [] }
-		expect(new GameState([[0]]).flatten()[0]).toEqual(expected)
+		expect(flattenGridIntoCells([[0]])[0]).toEqual(expected)
 	})
 
 	test("corner neighbors", () => {
 		const expected: Cell = { state: 1, neighbors: [0, 0, 0] }
 		expect(
-			new GameState([
+			flattenGridIntoCells([
 				[0, 0, 0],
 				[0, 0, 0],
 				[1, 0, 0],
-			]).flatten()[6],
+			])[6],
 		).toEqual(expected)
 	})
 
