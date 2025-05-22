@@ -68,4 +68,35 @@ describe("createGameStateFrom", () => {
 			createGameStateFrom([cell, cell, cell], new GameState([[0, 0, 0]])),
 		).toEqual(new GameState([[0, 0, 0]]))
 	})
+
+	test("if no change, order is preserved", () => {
+		const deadCell = { state: 0, neighbors: [] }
+		const aliveCell = { state: 1, neighbors: [] }
+		expect(
+			createGameStateFrom(
+				[
+					deadCell,
+					deadCell,
+					deadCell,
+					deadCell,
+					aliveCell,
+					deadCell,
+					deadCell,
+					deadCell,
+					deadCell,
+				],
+				new GameState([
+					[0, 0, 0],
+					[0, 1, 0],
+					[0, 0, 0],
+				]),
+			),
+		).toEqual(
+			new GameState([
+				[0, 0, 0],
+				[0, 1, 0],
+				[0, 0, 0],
+			]),
+		)
+	})
 })
