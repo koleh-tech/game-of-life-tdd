@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react"
-import { MdSquare } from "react-icons/md"
+import {
+	MdClose,
+	MdFastForward,
+	MdOutlineFastRewind,
+	MdOutlineGridOn,
+	MdOutlineGridView,
+	MdSquare,
+} from "react-icons/md"
 import "./App.css"
 import { createGameStateFrom, flattenGridIntoCells } from "./grid-logic"
 import { CellState, updateCell } from "./cell-logic"
@@ -76,12 +83,23 @@ function App() {
 				<button onClick={() => setRunningState(!runningState)}>
 					{runningState ? "Stop" : "Start"}
 				</button>
-				<button onClick={() => doubleCellGrid()}>🏁 ✖️2</button>
-				<button onClick={() => halveCellGrid()}>🏁 ➗2 </button>
+				<button onClick={() => doubleCellGrid()} title="Double the grid size">
+					<MdOutlineGridOn />
+				</button>
+				<button onClick={() => halveCellGrid()} title="Halve the grid size">
+					<MdOutlineGridView />
+				</button>
+				<button
+					onClick={() => setTimeBetweenGenerations(timeBetweenGenerations * 2)}
+					title="Double the time between generations"
+				>
+					<MdOutlineFastRewind />
+				</button>
 				<button
 					onClick={() => setTimeBetweenGenerations(timeBetweenGenerations / 2)}
+					title="Halve the time between generations"
 				>
-					⌛ ➗2{" "}
+					<MdFastForward />
 				</button>
 			</div>
 			<div className="cellGrid">
