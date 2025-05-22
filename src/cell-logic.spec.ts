@@ -15,4 +15,8 @@ describe("stateForCell", () => {
 		expect(newStateForCell({ state: 1, neighbors: [0, 0] }).state).toBe(1)
 		expect(newStateForCell({ state: 1, neighbors: [0, 0, 0] }).state).toBe(1)
 	})
+
+	test("4. Any dead cell with exactly three live neighbours becomes a live cell.", () => {
+		expect(newStateForCell({ state: 0, neighbors: [0, 0, 0] }).state).toBe(1)
+	})
 })
