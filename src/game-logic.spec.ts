@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest"
 import {
-	createGameStateFrom,
+	oldFunc,
 	flattenGridIntoCells,
 	InvalidGameDimensions,
 } from "./grid-logic"
@@ -64,16 +64,15 @@ describe("flattenGridIntoCells", () => {
 describe("createGameStateFrom", () => {
 	test("brings 2D back", () => {
 		const cell = { state: 0, neighbors: [] }
-		expect(createGameStateFrom([cell, cell, cell], [[0, 0, 0]])).toEqual([
-			[0, 0, 0],
-		])
+		const desiredGrid = [[0, 0, 0]]
+		expect(oldFunc([cell, cell, cell], desiredGrid)).toEqual([[0, 0, 0]])
 	})
 
 	test("if no change, order is preserved", () => {
 		const deadCell = { state: 0, neighbors: [] }
 		const aliveCell = { state: 1, neighbors: [] }
 		expect(
-			createGameStateFrom(
+			oldFunc(
 				[
 					deadCell,
 					deadCell,
