@@ -25,6 +25,7 @@ function App() {
 	}
 
 	useEffect(() => {
+		if (!runningState) return
 		return loopEverySecond()
 	})
 
