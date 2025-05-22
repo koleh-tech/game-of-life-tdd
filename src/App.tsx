@@ -1,6 +1,10 @@
 import { useEffect, useState, type Key } from "react"
 import "./App.css"
-import { createGameStateFrom, GameState } from "./game-logic"
+import {
+	createGameStateFrom,
+	flattenGridIntoCells,
+	GameState,
+} from "./game-logic"
 import { updateCell } from "./cell-logic"
 
 function App() {
@@ -19,7 +23,7 @@ function App() {
 
 	function runOneIteration() {
 		const previousGeneration = new GameState(gameBoard)
-		const nextGeneration = previousGeneration.flatten().map(updateCell)
+		const nextGeneration = flattenGridIntoCells(gameBoard).map(updateCell)
 		setGameBoard(createGameStateFrom(nextGeneration, previousGeneration).board)
 	}
 

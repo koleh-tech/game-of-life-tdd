@@ -53,11 +53,11 @@ describe("GameState flatten neighboring cell population", () => {
 	test("surrounded by neighbors", () => {
 		const expected: Cell = { state: 1, neighbors: [0, 0, 0, 0, 0, 0, 0, 0] }
 		expect(
-			new GameState([
+			flattenGridIntoCells([
 				[0, 0, 0],
 				[0, 1, 0],
 				[0, 0, 0],
-			]).flatten()[4],
+			])[4],
 		).toEqual(expected)
 	})
 })
