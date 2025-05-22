@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import {
-	MdClose,
 	MdFastForward,
 	MdOutlineFastRewind,
 	MdOutlineGridOn,
@@ -105,9 +104,9 @@ function App() {
 	return (
 		<>
 			{gridControls}
-			<div className="read-the-docs">
+			<div className="time-between-generations">
 				Time between generations:{" "}
-				{Math.round(timeBetweenGenerations / 1000) / 100} seconds
+				{Math.round(timeBetweenGenerations / 10) / 100} seconds
 			</div>
 			<div className="cellGrid">
 				<table>
