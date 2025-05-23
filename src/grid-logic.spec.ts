@@ -31,11 +31,11 @@ describe("CellGrid", () => {
         test("corner neighbors", () => {
             const expected: Cell = {
                 state: 1,
-                neighbors: [0, 0, 0, 0, 0, 0, 0, 0],
+                neighbors: [0, 0, 0, 0, 0, 0, 0, 1],
             }
             expect(
                 new CellGrid([
-                    [0, 0, 0],
+                    [0, 1, 0],
                     [0, 0, 0],
                     [1, 0, 0],
                 ]).updateCells()[2][0],
