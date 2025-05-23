@@ -5,8 +5,7 @@ export class InvalidGameDimensions extends Error {}
 export class CellGrid {
     constructor(private stateGrid: CellState[][]) {}
     updateCells() {
-        const grid = this.stateGrid
-        if (grid.length <= 1 && !grid[0].length) {
+        if (this.stateGrid.length <= 1 && !this.stateGrid[0].length) {
             throw new InvalidGameDimensions("Invalid game dimensions")
         }
         return [this.stateGrid.map((row) => [...row])]
