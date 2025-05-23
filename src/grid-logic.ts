@@ -8,7 +8,7 @@ export class CellGrid {
         if (this.stateGrid.length <= 1 && !this.stateGrid[0].length) {
             throw new InvalidGameDimensions("Invalid game dimensions")
         }
-        return [this.stateGrid.map((row) => [...row])]
+        return this.stateGrid.map((row) => [...row])
     }
 }
 

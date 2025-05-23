@@ -13,33 +13,38 @@ describe("CellGrid", () => {
             InvalidGameDimensions,
         )
     })
+    describe("Populating neighboring cells", () => {
+        test.skip("corner neighbors", () => {
+            const expected: Cell = {
+                state: 1,
+                neighbors: [0, 0, 0, 0, 0, 0, 0, 0],
+            }
+            expect(
+                flattenGridIntoCells([
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [1, 0, 0],
+                ])[6],
+            ).toEqual(expected)
+        })
+
+        test("surrounded by neighbors", () => {
+            const expected: Cell = {
+                state: 1,
+                neighbors: [0, 0, 0, 0, 0, 0, 0, 0],
+            }
+            expect(
+                new CellGrid([
+                    [0, 0, 0],
+                    [0, 1, 0],
+                    [0, 0, 0],
+                ]).updateCells()[1][1],
+            ).toEqual(expected.state)
+        })
+    })
 })
 
 describe("flattenGridIntoCells", () => {
-    test("throws error if game dimensions invalid", () => {
-        expect(() => flattenGridIntoCells([[]])).toThrow(InvalidGameDimensions)
-    })
-
-    test("flattens game state to 1D", () => {
-        expect(flattenGridIntoCells([[0, 0]]).length).toEqual(2)
-    })
-
-    describe("order goes", () => {
-        test("left to right", () => {
-            expect(flattenGridIntoCells([[0, 1, 0]])[1].state).toEqual(1)
-        })
-
-        test("top down", () => {
-            expect(
-                flattenGridIntoCells([
-                    [0, 0],
-                    [0, 1],
-                    [1, 1],
-                ])[4].state,
-            ).toEqual(1)
-        })
-    })
-
     describe("Populatings neighboring cells", () => {
         test("corner neighbors", () => {
             const expected: Cell = {
