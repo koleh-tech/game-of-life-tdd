@@ -1,6 +1,16 @@
 import type { Cell, CellState } from "./cell-logic"
 
 export class InvalidGameDimensions extends Error {}
+const directions = [
+    [-1, -1],
+    [-1, 0],
+    [-1, 1],
+    [0, -1],
+    [0, 1],
+    [1, -1],
+    [1, 0],
+    [1, 1],
+]
 
 export function flattenGridIntoCells(grid: CellState[][]) {
     if (grid.length <= 1 && !grid[0].length) {
@@ -9,16 +19,19 @@ export function flattenGridIntoCells(grid: CellState[][]) {
     const result: Cell[] = []
     for (let row = 0; row < grid.length; row++) {
         for (let column = 0; column < grid[row].length; column++) {
-            const neighbors: number[] = [
-                grid[row - 1]?.[column - 1],
-                grid[row - 1]?.[column],
-                grid[row - 1]?.[column + 1],
-                grid[row]?.[column - 1],
-                grid[row]?.[column + 1],
-                grid[row + 1]?.[column - 1],
-                grid[row + 1]?.[column],
-                grid[row + 1]?.[column + 1],
-            ].filter((n) => n !== undefined)
+            const neighbors = directions
+                .map(([dx, dy]) => grid[row + dx]?.[column + dy])
+                .filter((n) => n !== undefined)
+            // const neighbors: number[] = [
+            //     grid[row - 1]?.[column - 1],
+            //     grid[row - 1]?.[column],
+            //     grid[row - 1]?.[column + 1],
+            //     grid[row]?.[column - 1],
+            //     grid[row]?.[column + 1],
+            //     grid[row + 1]?.[column - 1],
+            //     grid[row + 1]?.[column],
+            //     grid[row + 1]?.[column + 1],
+            // ].filter((n) => n !== undefined)
             result.push({ state: grid[row][column], neighbors: neighbors })
         }
     }

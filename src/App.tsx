@@ -113,21 +113,22 @@ function App() {
                                         col: colNum,
                                     }),
                                 )
-                            return renderCell(cellState, handleCellClick)
+                            return (
+                                <div
+                                    key={`${rowNum}-${colNum}`}
+                                    className={
+                                        cellState === CellState.ALIVE
+                                            ? "cell alive"
+                                            : "cell dead"
+                                    }
+                                    onClick={handleCellClick}
+                                />
+                            )
                         }),
                     )}
                 </div>
             }
         </>
-    )
-}
-
-function renderCell(state: number, handleClick: () => void) {
-    return (
-        <div
-            className={state === CellState.ALIVE ? "cell alive" : "cell dead"}
-            onClick={handleClick}
-        />
     )
 }
 
