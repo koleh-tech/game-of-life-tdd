@@ -56,7 +56,7 @@ function App() {
 	const cellGrid = (
 		<div
 			className="grid"
-			style={{ gridTemplateColumns: `repeat(${numCols}, 20px)` }}
+			style={{ gridTemplateColumns: `repeat(${numCols}, 15px)` }}
 		>
 			{gameBoard.map((row, rowNum) =>
 				row.map((cellState, colNum) => {
@@ -67,15 +67,7 @@ function App() {
 								col: colNum,
 							}),
 						)
-					return (
-						<div
-							key={`cell-${rowNum}-${colNum}`}
-							className={
-								cellState === CellState.ALIVE ? "cell alive" : "cell dead"
-							}
-							onClick={handleCellClick}
-						/>
-					)
+					return renderCell(cellState, handleCellClick)
 				}),
 			)}
 		</div>
@@ -124,13 +116,11 @@ function App() {
 }
 
 function renderCell(state: number, handleClick: () => void) {
-	const blankCell = "container dead"
-	const aliveCell = "container alive"
 	return (
 		<div
-			className={state === CellState.ALIVE ? aliveCell : blankCell}
-			onClick={() => handleClick()}
-		></div>
+			className={state === CellState.ALIVE ? "cell alive" : "cell dead"}
+			onClick={handleClick}
+		/>
 	)
 }
 

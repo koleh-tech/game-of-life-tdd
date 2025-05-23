@@ -63,6 +63,9 @@
 	cursor: pointer;
 }
 
+.cell:hover {
+	filter: drop-shadow(0 0 1em #4caf50); }
+
 .cell.dead {
 	background-color: #1a1a1a;
 }
