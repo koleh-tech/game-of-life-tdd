@@ -20,11 +20,14 @@ describe("CellGrid", () => {
                 neighbors: [1, 0, 0, 0, 0, 0, 0, 0],
             }
             expect(
-                new CellGrid([
-                    [1, 0, 0],
-                    [0, 1, 0],
-                    [0, 0, 0],
-                ]).updateCells()[1][1],
+                new CellGrid(
+                    [
+                        [1, 0, 0],
+                        [0, 1, 0],
+                        [0, 0, 0],
+                    ],
+                    (cell) => cell,
+                ).updateCells()[1][1],
             ).toEqual(expected)
         })
 
@@ -34,11 +37,14 @@ describe("CellGrid", () => {
                 neighbors: [0, 0, 0, 0, 0, 0, 0, 1],
             }
             expect(
-                new CellGrid([
-                    [0, 1, 0],
-                    [0, 0, 0],
-                    [1, 0, 0],
-                ]).updateCells()[2][0],
+                new CellGrid(
+                    [
+                        [0, 1, 0],
+                        [0, 0, 0],
+                        [1, 0, 0],
+                    ],
+                    (cell) => cell,
+                ).updateCells()[2][0],
             ).toEqual(expected)
         })
     })
