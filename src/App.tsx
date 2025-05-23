@@ -13,30 +13,30 @@ import { CellGridEditor } from "./cell-grid-editor"
 function App() {
 	const [timeBetweenGenerations, setTimeBetweenGenerations] =
 		useState<number>(500)
-	const [gameBoard, setGameBoard] = useState<CellState[][]>(INITIAL_GAME_STATE)
+	const [cellGrid, setCellGrid] = useState<CellState[][]>(INITIAL_GAME_STATE)
 	const [runningState, setRunningState] = useState(false)
 
 	function doubleCellGrid() {
-		setGameBoard([
-			...gameBoard.map((row) => [...row, ...row]),
-			...gameBoard.map((row) => [...row, ...row]),
+		setCellGrid([
+			...cellGrid.map((row) => [...row, ...row]),
+			...cellGrid.map((row) => [...row, ...row]),
 		])
 	}
 
 	function halveCellGrid() {
-		setGameBoard(
-			gameBoard
+		setCellGrid(
+			cellGrid
 				.map((row) => row.slice(0, row.length / 2))
-				.slice(0, gameBoard.length / 2),
+				.slice(0, cellGrid.length / 2),
 		)
 	}
 
 	function runOneIteration() {
-		const nextGeneration = flattenGridIntoCells(gameBoard).map(updateCell)
-		setGameBoard(
+		const nextGeneration = flattenGridIntoCells(cellGrid).map(updateCell)
+		setCellGrid(
 			expand(nextGeneration, {
-				numRows: gameBoard.length,
-				numCols: gameBoard[0].length,
+				numRows: cellGrid.length,
+				numCols: cellGrid[0].length,
 			}),
 		)
 	}
@@ -51,27 +51,7 @@ function App() {
 		return loopEverySecond()
 	})
 
-	const numCols = gameBoard[0]?.length || 0
-
-	const cellGrid = (
-		<div
-			className="grid"
-			style={{ gridTemplateColumns: `repeat(${numCols}, 15px)` }}
-		>
-			{gameBoard.map((row, rowNum) =>
-				row.map((cellState, colNum) => {
-					const handleCellClick = () =>
-						setGameBoard(
-							new CellGridEditor(gameBoard).withInvertedCellStateAt({
-								row: rowNum,
-								col: colNum,
-							}),
-						)
-					return renderCell(cellState, handleCellClick)
-				}),
-			)}
-		</div>
-	)
+	const numCols = cellGrid[0]?.length || 0
 
 	const gridControls = (
 		<div className="card">
@@ -110,7 +90,25 @@ function App() {
 				Time between generations:{" "}
 				{Math.round(timeBetweenGenerations / 10) / 100} seconds
 			</div>
-			{cellGrid}
+			{
+				<div
+					className="grid"
+					style={{ gridTemplateColumns: `repeat(${numCols}, 15px)` }}
+				>
+					{cellGrid.map((row, rowNum) =>
+						row.map((cellState, colNum) => {
+							const handleCellClick = () =>
+								setCellGrid(
+									new CellGridEditor(cellGrid).withInvertedCellStateAt({
+										row: rowNum,
+										col: colNum,
+									}),
+								)
+							return renderCell(cellState, handleCellClick)
+						}),
+					)}
+				</div>
+			}
 		</>
 	)
 }
