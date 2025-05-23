@@ -1,35 +1,44 @@
-import type { Cell, CellState } from "./cell-logic"
+import { updateCell, type Cell, type CellState } from "./cell-logic"
 
 export class InvalidGameDimensions extends Error {}
 
 export class CellGrid {
-    constructor(private stateGrid: CellState[][]) {}
+    constructor(
+        private stateGrid: CellState[][],
+        private cellUpdater: (cell: Cell) => Cell = updateCell,
+    ) {}
     updateCells() {
         if (this.stateGrid.length <= 1 && !this.stateGrid[0].length) {
             throw new InvalidGameDimensions("Invalid game dimensions")
         }
-        const grid = this.stateGrid
-        const getCellAtcoordinate = (row: number, col: number) =>
-            grid[(row + grid.length) % grid.length][
-                (col + grid[0].length) % grid[0].length
-            ]
         return this.stateGrid.map((rowRef, row) =>
             rowRef.map((cellState, column) => {
                 return {
                     neighbors: [
-                        getCellAtcoordinate(row - 1, column - 1),
-                        getCellAtcoordinate(row - 1, column),
-                        getCellAtcoordinate(row - 1, column + 1),
-                        getCellAtcoordinate(row, column - 1),
-                        getCellAtcoordinate(row, column + 1),
-                        getCellAtcoordinate(row + 1, column - 1),
-                        getCellAtcoordinate(row + 1, column),
-                        getCellAtcoordinate(row + 1, column + 1),
+                        this.cellAtcoordinate(row - 1, column - 1),
+                        this.cellAtcoordinate(row - 1, column),
+                        this.cellAtcoordinate(row - 1, column + 1),
+                        this.cellAtcoordinate(row, column - 1),
+                        this.cellAtcoordinate(row, column + 1),
+                        this.cellAtcoordinate(row + 1, column - 1),
+                        this.cellAtcoordinate(row + 1, column),
+                        this.cellAtcoordinate(row + 1, column + 1),
                     ],
                     state: cellState,
                 }
             }),
         )
+    }
+
+    /**
+     * If coordinate lies beyond the grid dimensions, it will wrap around
+     */
+    cellAtcoordinate(row: number, col: number) {
+        const numCols = this.stateGrid[0].length
+        const numRows = this.stateGrid.length
+        return this.stateGrid[(row + numRows) % numRows][
+            (col + numCols) % numCols
+        ]
     }
 }
 
