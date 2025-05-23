@@ -39,7 +39,7 @@ describe("CellGrid", () => {
                     [0, 1, 0],
                     [0, 0, 0],
                 ]).updateCells()[1][1],
-            ).toEqual(expected.state)
+            ).toEqual(expected)
         })
     })
 })
