@@ -8,7 +8,7 @@ export type Coordinate = {
 
 export class CellGrid {
     constructor(
-        private stateGrid: CellState[][],
+        public stateGrid: CellState[][],
         private cellUpdater: (cell: Cell) => Cell = updateCell,
     ) {}
 

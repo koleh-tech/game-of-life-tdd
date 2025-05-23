@@ -25,6 +25,7 @@ describe("CellGrid", () => {
             ).updateCells()[1][1],
         ).toEqual(expected)
     })
+
     describe("Populating of neighboring cells", () => {
         test("neighbors go from top left to bottom right", () => {
             const expected: Cell = {
