@@ -22,7 +22,7 @@ export class CellGrid {
         )
     }
 
-    neighborsForCell(row: number, column: number) {
+    private neighborsForCell(row: number, column: number) {
         return [
             this.cellAtcoordinate(row - 1, column - 1),
             this.cellAtcoordinate(row - 1, column),
@@ -38,7 +38,7 @@ export class CellGrid {
     /**
      * If coordinate lies beyond the grid dimensions, it will wrap around
      */
-    cellAtcoordinate(row: number, col: number) {
+    private cellAtcoordinate(row: number, col: number) {
         const numCols = this.stateGrid[0].length
         const numRows = this.stateGrid.length
         return this.stateGrid[(row + numRows) % numRows][
