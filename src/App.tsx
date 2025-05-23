@@ -11,12 +11,16 @@ import { CellState, INITIAL_GAME_STATE, updateCell } from "./cell-logic"
 import { CellGridEditor } from "./cell-grid-editor"
 
 function App() {
+    const [gridSize, setGridSize] = useState<number>(
+        INITIAL_GAME_STATE[0]?.length || 0,
+    )
     const [timeBetweenGenerations, setTimeBetweenGenerations] =
         useState<number>(500)
     const [cellGrid, setCellGrid] = useState<CellState[][]>(INITIAL_GAME_STATE)
     const [runningState, setRunningState] = useState(false)
 
     function doubleCellGrid() {
+        setGridSize(cellGrid.length * 2)
         setCellGrid([
             ...cellGrid.map((row) => [...row, ...row]),
             ...cellGrid.map((row) => [...row, ...row]),
@@ -24,6 +28,7 @@ function App() {
     }
 
     function halveCellGrid() {
+        setGridSize(cellGrid.length / 2)
         setCellGrid(
             cellGrid
                 .map((row) => row.slice(0, row.length / 2))
@@ -31,40 +36,54 @@ function App() {
         )
     }
 
-    function runOneIteration() {
-        const nextGeneration = flattenGridIntoCells(cellGrid).map(updateCell)
-        setCellGrid(
-            expand(nextGeneration, {
-                numRows: cellGrid.length,
-                numCols: cellGrid[0].length,
-            }),
-        )
-    }
-
-    function loopEverySecond() {
-        const interval = setInterval(runOneIteration, timeBetweenGenerations)
-        return () => clearInterval(interval)
-    }
-
     useEffect(() => {
         if (!runningState) return
-        return loopEverySecond()
-    })
+        const interval = setInterval(() => {
+            setCellGrid((prevGrid) => {
+                const nextGeneration =
+                    flattenGridIntoCells(prevGrid).map(updateCell)
+                return expand(nextGeneration, {
+                    numRows: cellGrid.length,
+                    numCols: cellGrid[0].length,
+                })
+            })
+        }, timeBetweenGenerations)
+        return () => clearInterval(interval)
+    }, [runningState, timeBetweenGenerations, gridSize])
 
-    const numCols = cellGrid[0]?.length || 0
-
+    const gridControlData = [
+        {
+            display: runningState ? "Stop" : "Start",
+            clickHandler: () => [setRunningState(!runningState)],
+            title: `${runningState ? "Stop" : "Start"} the simulation`,
+        },
+        {
+            display: <MdOutlineGridOn />,
+            clickHandler: () => {
+                doubleCellGrid()
+            },
+            title: "Double the grid size",
+        },
+    ]
     const gridControls = (
         <div className="card">
-            <button onClick={() => setRunningState(!runningState)}>
-                {runningState ? "Stop" : "Start"}
-            </button>
+            {gridControlData.map(({ display, clickHandler, title }) => (
+                <button
+                    key={title}
+                    onClick={() => clickHandler()}
+                    title={title}
+                >
+                    {display}
+                </button>
+            ))}
             <button
-                onClick={() => doubleCellGrid()}
-                title="Double the grid size"
+                onClick={() => [
+                    setRunningState(!runningState),
+                    halveCellGrid(),
+                    setRunningState(!runningState),
+                ]}
+                title="Halve the grid size"
             >
-                <MdOutlineGridOn />
-            </button>
-            <button onClick={() => halveCellGrid()} title="Halve the grid size">
                 <MdOutlineGridView />
             </button>
             <button
@@ -90,6 +109,7 @@ function App() {
             </button>
         </div>
     )
+
     return (
         <>
             {gridControls}
@@ -100,7 +120,9 @@ function App() {
             {
                 <div
                     className="grid"
-                    style={{ gridTemplateColumns: `repeat(${numCols}, 15px)` }}
+                    style={{
+                        gridTemplateColumns: `repeat(${gridSize}, 15px)`,
+                    }}
                 >
                     {cellGrid.map((row, rowNum) =>
                         row.map((cellState, colNum) => {
