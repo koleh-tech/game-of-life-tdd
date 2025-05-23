@@ -52,46 +52,10 @@ function App() {
         return () => clearInterval(interval)
     }, [runningState, timeBetweenGenerations, gridSize])
 
-    const gridControlData = [
-        {
-            display: runningState ? "Stop" : "Start",
-            clickHandler: () => [setRunningState(!runningState)],
-            title: `${runningState ? "Stop" : "Start"} the simulation`,
-        },
-        {
-            display: <MdOutlineGridOn />,
-            clickHandler: () => {
-                doubleCellGrid()
-            },
-            title: "Double the grid size",
-        },
-        {
-            display: <MdOutlineGridView />,
-            clickHandler: () => {
-                halveCellGrid()
-            },
-            title: "Halve the grid size",
-        },
-        {
-            display: <MdOutlineFastRewind />,
-            clickHandler: () => {
-                setTimeBetweenGenerations(timeBetweenGenerations * 2)
-            },
-            title: "Double the time between generations",
-        },
-        {
-            display: <MdFastForward />,
-            clickHandler: () => {
-                setTimeBetweenGenerations(timeBetweenGenerations / 2)
-            },
-            title: "Halve the time between generations",
-        },
-    ]
-
     return (
         <>
             <div className="card">
-                {gridControlData.map(({ display, clickHandler, title }) => (
+                {getGridControls().map(({ display, clickHandler, title }) => (
                     <button key={title} onClick={clickHandler} title={title}>
                         {display}
                     </button>
@@ -115,32 +79,74 @@ function App() {
                         gridTemplateColumns: `repeat(${gridSize}, 15px)`,
                     }}
                 >
-                    {cellGrid.map((row, rowNum) =>
-                        row.map((cellState, colNum) => {
-                            return (
-                                <div
-                                    key={`${rowNum}-${colNum}`}
-                                    className={
-                                        cellState === CellState.ALIVE
-                                            ? "cell alive"
-                                            : "cell dead"
-                                    }
-                                    onClick={() =>
-                                        setCellGrid(
-                                            gridEditor.withInvertedCellStateAt({
-                                                row: rowNum,
-                                                col: colNum,
-                                            }),
-                                        )
-                                    }
-                                />
-                            )
-                        }),
-                    )}
+                    {getCellGrid()}
                 </div>
             }
         </>
     )
+
+    function getCellGrid() {
+        return cellGrid.map((row, rowNum) =>
+            row.map((cellState, colNum) => {
+                return (
+                    <div
+                        key={`${rowNum}-${colNum}`}
+                        className={
+                            cellState === CellState.ALIVE
+                                ? "cell alive"
+                                : "cell dead"
+                        }
+                        onClick={() =>
+                            setCellGrid(
+                                gridEditor.withInvertedCellStateAt({
+                                    row: rowNum,
+                                    col: colNum,
+                                }),
+                            )
+                        }
+                    />
+                )
+            }),
+        )
+    }
+
+    function getGridControls() {
+        return [
+            {
+                display: runningState ? "Stop" : "Start",
+                clickHandler: () => [setRunningState(!runningState)],
+                title: `${runningState ? "Stop" : "Start"} the simulation`,
+            },
+            {
+                display: <MdOutlineGridOn />,
+                clickHandler: () => {
+                    doubleCellGrid()
+                },
+                title: "Double the grid size",
+            },
+            {
+                display: <MdOutlineGridView />,
+                clickHandler: () => {
+                    halveCellGrid()
+                },
+                title: "Halve the grid size",
+            },
+            {
+                display: <MdOutlineFastRewind />,
+                clickHandler: () => {
+                    setTimeBetweenGenerations(timeBetweenGenerations * 2)
+                },
+                title: "Double the time between generations",
+            },
+            {
+                display: <MdFastForward />,
+                clickHandler: () => {
+                    setTimeBetweenGenerations(timeBetweenGenerations / 2)
+                },
+                title: "Halve the time between generations",
+            },
+        ]
+    }
 }
 
 export default App
