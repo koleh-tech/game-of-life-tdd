@@ -18,13 +18,13 @@ npm install
 # Running the app with hot reloading
 npm run dev
 
-# Running the tests with autowatch 
+# Running the tests with autowatch
 npm run test
 
 # Run tests once off
 npm run test-on-ci
 
-# Auto format the code 
+# Auto format the code
 npm run format
 ```
 
