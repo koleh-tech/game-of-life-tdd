@@ -17,22 +17,26 @@ export function flattenGridIntoCells(grid: CellState[][]) {
         throw new InvalidGameDimensions("Invalid game dimensions")
     }
     const result: Cell[] = []
+    const getCellAtcoordinate = (row: number, col: number) =>
+        grid[(row + grid.length) % grid.length][
+            (col + grid[0].length) % grid[0].length
+        ]
+
     for (let row = 0; row < grid.length; row++) {
         for (let column = 0; column < grid[row].length; column++) {
-            const neighbors = directions
-                .map(([dx, dy]) => grid[row + dx]?.[column + dy])
-                .filter((n) => n !== undefined)
-            // const neighbors: number[] = [
-            //     grid[row - 1]?.[column - 1],
-            //     grid[row - 1]?.[column],
-            //     grid[row - 1]?.[column + 1],
-            //     grid[row]?.[column - 1],
-            //     grid[row]?.[column + 1],
-            //     grid[row + 1]?.[column - 1],
-            //     grid[row + 1]?.[column],
-            //     grid[row + 1]?.[column + 1],
-            // ].filter((n) => n !== undefined)
-            result.push({ state: grid[row][column], neighbors: neighbors })
+            result.push({
+                state: grid[row][column],
+                neighbors: [
+                    getCellAtcoordinate(row - 1, column - 1),
+                    getCellAtcoordinate(row - 1, column),
+                    getCellAtcoordinate(row - 1, column + 1),
+                    getCellAtcoordinate(row, column - 1),
+                    getCellAtcoordinate(row, column + 1),
+                    getCellAtcoordinate(row + 1, column - 1),
+                    getCellAtcoordinate(row + 1, column),
+                    getCellAtcoordinate(row + 1, column + 1),
+                ],
+            })
         }
     }
     return result

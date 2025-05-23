@@ -38,7 +38,10 @@ describe("flattenGridIntoCells", () => {
         })
 
         test("corner neighbors", () => {
-            const expected: Cell = { state: 1, neighbors: [0, 0, 0] }
+            const expected: Cell = {
+                state: 1,
+                neighbors: [0, 0, 0, 0, 0, 0, 0, 0],
+            }
             expect(
                 flattenGridIntoCells([
                     [0, 0, 0],
