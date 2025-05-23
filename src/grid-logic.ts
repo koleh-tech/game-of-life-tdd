@@ -8,10 +8,24 @@ export class CellGrid {
         if (this.stateGrid.length <= 1 && !this.stateGrid[0].length) {
             throw new InvalidGameDimensions("Invalid game dimensions")
         }
-        return this.stateGrid.map((row) =>
-            row.map((cellState, colNum) => {
+        const grid = this.stateGrid
+        const getCellAtcoordinate = (row: number, col: number) =>
+            grid[(row + grid.length) % grid.length][
+                (col + grid[0].length) % grid[0].length
+            ]
+        return this.stateGrid.map((rowRef, row) =>
+            rowRef.map((cellState, column) => {
                 return {
-                    neighbors: Array(8).fill(0),
+                    neighbors: [
+                        getCellAtcoordinate(row - 1, column - 1),
+                        getCellAtcoordinate(row - 1, column),
+                        getCellAtcoordinate(row - 1, column + 1),
+                        getCellAtcoordinate(row, column - 1),
+                        getCellAtcoordinate(row, column + 1),
+                        getCellAtcoordinate(row + 1, column - 1),
+                        getCellAtcoordinate(row + 1, column),
+                        getCellAtcoordinate(row + 1, column + 1),
+                    ],
                     state: cellState,
                 }
             }),

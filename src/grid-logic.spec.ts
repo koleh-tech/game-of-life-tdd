@@ -14,6 +14,20 @@ describe("CellGrid", () => {
         )
     })
     describe("Populating neighboring cells", () => {
+        test("neighbors go from top left to bottom right", () => {
+            const expected: Cell = {
+                state: 1,
+                neighbors: [1, 0, 0, 0, 0, 0, 0, 0],
+            }
+            expect(
+                new CellGrid([
+                    [1, 0, 0],
+                    [0, 1, 0],
+                    [0, 0, 0],
+                ]).updateCells()[1][1],
+            ).toEqual(expected)
+        })
+
         test("corner neighbors", () => {
             const expected: Cell = {
                 state: 1,
@@ -22,23 +36,9 @@ describe("CellGrid", () => {
             expect(
                 new CellGrid([
                     [0, 0, 0],
-                    [1, 0, 0],
+                    [0, 0, 0],
                     [1, 0, 0],
                 ]).updateCells()[2][0],
-            ).toEqual(expected)
-        })
-
-        test("surrounded by neighbors", () => {
-            const expected: Cell = {
-                state: 1,
-                neighbors: [0, 0, 0, 0, 0, 0, 0, 0],
-            }
-            expect(
-                new CellGrid([
-                    [0, 0, 0],
-                    [0, 1, 0],
-                    [0, 0, 0],
-                ]).updateCells()[1][1],
             ).toEqual(expected)
         })
     })
