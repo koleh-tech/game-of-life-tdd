@@ -42,21 +42,18 @@ export function updateCell(cell: Cell) {
     }
 }
 
-function willLive(cell: Cell) {
-    if (cell.state === CellState.DEAD) return willRevive(cell)
-    return (
-        livingNeighborsFor(cell).length === 2 ||
-        livingNeighborsFor(cell).length === 3
-    )
+function numLivingNeighborsFor(cell: Cell) {
+    const isAlive = (neighbor: CellState) => neighbor === CellState.ALIVE
+    return cell.neighbors.filter(isAlive).length
 }
 
-function livingNeighborsFor(cell: Cell) {
-    return cell.neighbors.filter((neighbor) => neighbor === CellState.ALIVE)
+function willLive(cell: Cell) {
+    if (cell.state === CellState.DEAD) return willRevive(cell)
+    return [2, 3].includes(numLivingNeighborsFor(cell))
 }
 
 function willRevive(cell: Cell) {
     return (
-        livingNeighborsFor(cell).length === 3 ||
-        livingNeighborsFor(cell).length === 6
+        numLivingNeighborsFor(cell) === 3 || numLivingNeighborsFor(cell) === 6
     )
 }
