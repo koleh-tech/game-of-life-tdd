@@ -53,7 +53,5 @@ function willLive(cell: Cell) {
 }
 
 function willRevive(cell: Cell) {
-    return (
-        numLivingNeighborsFor(cell) === 3 || numLivingNeighborsFor(cell) === 6
-    )
+    return [3, 6].includes(numLivingNeighborsFor(cell))
 }
