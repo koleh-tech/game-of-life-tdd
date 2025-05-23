@@ -18,6 +18,7 @@ function App() {
         useState<number>(500)
     const [cellGrid, setCellGrid] = useState<CellState[][]>(INITIAL_GAME_STATE)
     const [runningState, setRunningState] = useState(false)
+    const gridEditor = new CellGridEditor(cellGrid)
 
     function doubleCellGrid() {
         setGridSize(cellGrid.length * 2)
@@ -86,51 +87,36 @@ function App() {
             title: "Halve the time between generations",
         },
     ]
-    const gridControls = (
-        <div className="card">
-            {gridControlData.map(({ display, clickHandler, title }) => (
-                <button
-                    key={title}
-                    onClick={() => clickHandler()}
-                    title={title}
-                >
-                    {display}
-                </button>
-            ))}
-
-            <button>
-                <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Rules">
-                    Read the rules
-                </a>
-            </button>
-        </div>
-    )
 
     return (
         <>
-            {gridControls}
+            <div className="card">
+                {gridControlData.map(({ display, clickHandler, title }) => (
+                    <button key={title} onClick={clickHandler} title={title}>
+                        {display}
+                    </button>
+                ))}
+
+                <button>
+                    <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Rules">
+                        Read the rules
+                    </a>
+                </button>
+            </div>
+
             <div className="time-between-generations">
                 Time between generations:{" "}
                 {Math.round(timeBetweenGenerations / 10) / 100} seconds
             </div>
             {
                 <div
-                    className="grid"
+                    className="cell-grid"
                     style={{
                         gridTemplateColumns: `repeat(${gridSize}, 15px)`,
                     }}
                 >
                     {cellGrid.map((row, rowNum) =>
                         row.map((cellState, colNum) => {
-                            const handleCellClick = () =>
-                                setCellGrid(
-                                    new CellGridEditor(
-                                        cellGrid,
-                                    ).withInvertedCellStateAt({
-                                        row: rowNum,
-                                        col: colNum,
-                                    }),
-                                )
                             return (
                                 <div
                                     key={`${rowNum}-${colNum}`}
@@ -139,7 +125,14 @@ function App() {
                                             ? "cell alive"
                                             : "cell dead"
                                     }
-                                    onClick={handleCellClick}
+                                    onClick={() =>
+                                        setCellGrid(
+                                            gridEditor.withInvertedCellStateAt({
+                                                row: rowNum,
+                                                col: colNum,
+                                            }),
+                                        )
+                                    }
                                 />
                             )
                         }),
