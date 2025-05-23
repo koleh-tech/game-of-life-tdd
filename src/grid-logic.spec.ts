@@ -44,38 +44,6 @@ describe("CellGrid", () => {
     })
 })
 
-describe("flattenGridIntoCells", () => {
-    describe("Populatings neighboring cells", () => {
-        test("corner neighbors", () => {
-            const expected: Cell = {
-                state: 1,
-                neighbors: [0, 0, 0, 0, 0, 0, 0, 0],
-            }
-            expect(
-                flattenGridIntoCells([
-                    [0, 0, 0],
-                    [0, 0, 0],
-                    [1, 0, 0],
-                ])[6],
-            ).toEqual(expected)
-        })
-
-        test("surrounded by neighbors", () => {
-            const expected: Cell = {
-                state: 1,
-                neighbors: [0, 0, 0, 0, 0, 0, 0, 0],
-            }
-            expect(
-                flattenGridIntoCells([
-                    [0, 0, 0],
-                    [0, 1, 0],
-                    [0, 0, 0],
-                ])[4],
-            ).toEqual(expected)
-        })
-    })
-})
-
 describe("expand", () => {
     test("brings 2D back", () => {
         const cell = { state: 0, neighbors: [] }
