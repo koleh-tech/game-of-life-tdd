@@ -71,6 +71,20 @@ function App() {
             },
             title: "Halve the grid size",
         },
+        {
+            display: <MdOutlineFastRewind />,
+            clickHandler: () => {
+                setTimeBetweenGenerations(timeBetweenGenerations * 2)
+            },
+            title: "Double the time between generations",
+        },
+        {
+            display: <MdOutlineFastRewind />,
+            clickHandler: () => {
+                setTimeBetweenGenerations(timeBetweenGenerations * 2)
+            },
+            title: "Double the time between generations",
+        },
     ]
     const gridControls = (
         <div className="card">
@@ -84,14 +98,6 @@ function App() {
                 </button>
             ))}
 
-            <button
-                onClick={() =>
-                    setTimeBetweenGenerations(timeBetweenGenerations * 2)
-                }
-                title="Double the time between generations"
-            >
-                <MdOutlineFastRewind />
-            </button>
             <button
                 onClick={() =>
                     setTimeBetweenGenerations(timeBetweenGenerations / 2)
