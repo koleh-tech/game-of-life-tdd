@@ -53,26 +53,6 @@ function App() {
 
 	const numCols = gameBoard[0]?.length || 0
 
-	const cellGrid = (
-		<div
-			className="grid"
-			style={{ gridTemplateColumns: `repeat(${numCols}, 15px)` }}
-		>
-			{gameBoard.map((row, rowNum) =>
-				row.map((cellState, colNum) => {
-					const handleCellClick = () =>
-						setGameBoard(
-							new CellGridEditor(gameBoard).withInvertedCellStateAt({
-								row: rowNum,
-								col: colNum,
-							}),
-						)
-					return renderCell(cellState, handleCellClick)
-				}),
-			)}
-		</div>
-	)
-
 	const gridControls = (
 		<div className="card">
 			<button onClick={() => setRunningState(!runningState)}>
@@ -110,7 +90,25 @@ function App() {
 				Time between generations:{" "}
 				{Math.round(timeBetweenGenerations / 10) / 100} seconds
 			</div>
-			{cellGrid}
+			{
+				<div
+					className="grid"
+					style={{ gridTemplateColumns: `repeat(${numCols}, 15px)` }}
+				>
+					{gameBoard.map((row, rowNum) =>
+						row.map((cellState, colNum) => {
+							const handleCellClick = () =>
+								setGameBoard(
+									new CellGridEditor(gameBoard).withInvertedCellStateAt({
+										row: rowNum,
+										col: colNum,
+									}),
+								)
+							return renderCell(cellState, handleCellClick)
+						}),
+					)}
+				</div>
+			}
 		</>
 	)
 }
