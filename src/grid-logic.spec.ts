@@ -6,7 +6,7 @@ import {
 } from "./grid-logic"
 import type { Cell } from "./cell-logic"
 
-describe("GameState flatten", () => {
+describe("flattenGridIntoCells", () => {
     test("throws error if game dimensions invalid", () => {
         expect(() => flattenGridIntoCells([[]])).toThrow(InvalidGameDimensions)
     })
@@ -30,38 +30,41 @@ describe("GameState flatten", () => {
             ).toEqual(1)
         })
     })
+
+    describe("Populatings neighboring cells", () => {
+        test("no neighbors", () => {
+            const expected: Cell = { state: 0, neighbors: [] }
+            expect(flattenGridIntoCells([[0]])[0]).toEqual(expected)
+        })
+
+        test("corner neighbors", () => {
+            const expected: Cell = { state: 1, neighbors: [0, 0, 0] }
+            expect(
+                flattenGridIntoCells([
+                    [0, 0, 0],
+                    [0, 0, 0],
+                    [1, 0, 0],
+                ])[6],
+            ).toEqual(expected)
+        })
+
+        test("surrounded by neighbors", () => {
+            const expected: Cell = {
+                state: 1,
+                neighbors: [0, 0, 0, 0, 0, 0, 0, 0],
+            }
+            expect(
+                flattenGridIntoCells([
+                    [0, 0, 0],
+                    [0, 1, 0],
+                    [0, 0, 0],
+                ])[4],
+            ).toEqual(expected)
+        })
+    })
 })
 
-describe("GameState flatten neighboring cell population", () => {
-    test("no neighbors", () => {
-        const expected: Cell = { state: 0, neighbors: [] }
-        expect(flattenGridIntoCells([[0]])[0]).toEqual(expected)
-    })
-
-    test("corner neighbors", () => {
-        const expected: Cell = { state: 1, neighbors: [0, 0, 0] }
-        expect(
-            flattenGridIntoCells([
-                [0, 0, 0],
-                [0, 0, 0],
-                [1, 0, 0],
-            ])[6],
-        ).toEqual(expected)
-    })
-
-    test("surrounded by neighbors", () => {
-        const expected: Cell = { state: 1, neighbors: [0, 0, 0, 0, 0, 0, 0, 0] }
-        expect(
-            flattenGridIntoCells([
-                [0, 0, 0],
-                [0, 1, 0],
-                [0, 0, 0],
-            ])[4],
-        ).toEqual(expected)
-    })
-})
-
-describe("createGameStateFrom", () => {
+describe("expand", () => {
     test("brings 2D back", () => {
         const cell = { state: 0, neighbors: [] }
         const cellsToExpand = [cell, cell, cell]
