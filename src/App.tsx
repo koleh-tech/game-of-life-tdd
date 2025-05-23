@@ -64,6 +64,13 @@ function App() {
             },
             title: "Double the grid size",
         },
+        {
+            display: <MdOutlineGridView />,
+            clickHandler: () => {
+                halveCellGrid()
+            },
+            title: "Halve the grid size",
+        },
     ]
     const gridControls = (
         <div className="card">
@@ -76,16 +83,7 @@ function App() {
                     {display}
                 </button>
             ))}
-            <button
-                onClick={() => [
-                    setRunningState(!runningState),
-                    halveCellGrid(),
-                    setRunningState(!runningState),
-                ]}
-                title="Halve the grid size"
-            >
-                <MdOutlineGridView />
-            </button>
+
             <button
                 onClick={() =>
                     setTimeBetweenGenerations(timeBetweenGenerations * 2)
