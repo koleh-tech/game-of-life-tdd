@@ -6,8 +6,8 @@ import {
     MdOutlineGridView,
 } from "react-icons/md"
 import "./App.css"
-import { flattenGridIntoCells, expand, CellGrid } from "./grid-logic"
-import { CellState, INITIAL_GAME_STATE, updateCell } from "./cell-logic"
+import { CellGrid } from "./grid-logic"
+import { CellState, INITIAL_GAME_STATE } from "./cell-logic"
 import { CellGridEditor } from "./cell-grid-editor"
 
 function App() {

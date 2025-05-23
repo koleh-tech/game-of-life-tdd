@@ -7,7 +7,7 @@ the UI development was mainly guided by Typescript.
 
 ## Highlife variation
 
-I've added the [Highlife](https://en.wikipedia.org/wiki/Highlife_(cellular_automaton)) variation of Conway's rules.
+I've added the [Highlife](<https://en.wikipedia.org/wiki/Highlife_(cellular_automaton)>) variation of Conway's rules.
 
 ## Live instance
 
