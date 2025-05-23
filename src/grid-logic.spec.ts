@@ -3,8 +3,17 @@ import {
     flattenGridIntoCells,
     InvalidGameDimensions,
     expand,
+    CellGrid,
 } from "./grid-logic"
 import type { Cell } from "./cell-logic"
+
+describe("CellGrid", () => {
+    test("throws error if game dimensions invalid", () => {
+        expect(() => new CellGrid([[]]).updateCells()).toThrow(
+            InvalidGameDimensions,
+        )
+    })
+})
 
 describe("flattenGridIntoCells", () => {
     test("throws error if game dimensions invalid", () => {
