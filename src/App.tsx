@@ -79,11 +79,11 @@ function App() {
             title: "Double the time between generations",
         },
         {
-            display: <MdOutlineFastRewind />,
+            display: <MdFastForward />,
             clickHandler: () => {
-                setTimeBetweenGenerations(timeBetweenGenerations * 2)
+                setTimeBetweenGenerations(timeBetweenGenerations / 2)
             },
-            title: "Double the time between generations",
+            title: "Halve the time between generations",
         },
     ]
     const gridControls = (
@@ -98,14 +98,6 @@ function App() {
                 </button>
             ))}
 
-            <button
-                onClick={() =>
-                    setTimeBetweenGenerations(timeBetweenGenerations / 2)
-                }
-                title="Halve the time between generations"
-            >
-                <MdFastForward />
-            </button>
             <button>
                 <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Rules">
                     Read the rules
