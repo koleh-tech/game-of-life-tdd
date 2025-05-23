@@ -1,57 +1,57 @@
 name: Test
 
 on:
-  pull_request:
-    branches: [main]
+    pull_request:
+        branches: [main]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+    test:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
+        strategy:
+            matrix:
+                node-version: [18.x]
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "npm"
 
-      - name: Install dependencies
-        run: npm install
+            - name: Install dependencies
+              run: npm install
 
-      - name: Check formatting
-        run: npm run format:check
+            - name: Check formatting
+              run: npm run format:check
 
-      - name: Lint
-        run: npm run lint
+            - name: Lint
+              run: npm run lint
 
-      - name: Run tests
-        run: npm run test-on-ci
+            - name: Run tests
+              run: npm run test-on-ci
 
-  build:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
+        strategy:
+            matrix:
+                node-version: [18.x]
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: "npm"
 
-      - name: Install dependencies
-        run: npm install
-      - name: Check project can build
-        run: npm run build
+            - name: Install dependencies
+              run: npm install
+            - name: Check project can build
+              run: npm run build
