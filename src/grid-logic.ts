@@ -13,7 +13,7 @@ export class CellGrid {
         }
         return this.stateGrid.map((rowRef, row) =>
             rowRef.map((cellState, column) => {
-                return {
+                const cell = {
                     neighbors: [
                         this.cellAtcoordinate(row - 1, column - 1),
                         this.cellAtcoordinate(row - 1, column),
@@ -26,6 +26,7 @@ export class CellGrid {
                     ],
                     state: cellState,
                 }
+                return this.cellUpdater(cell)
             }),
         )
     }
