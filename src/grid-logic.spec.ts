@@ -14,17 +14,17 @@ describe("CellGrid", () => {
         )
     })
     describe("Populating neighboring cells", () => {
-        test.skip("corner neighbors", () => {
+        test("corner neighbors", () => {
             const expected: Cell = {
                 state: 1,
                 neighbors: [0, 0, 0, 0, 0, 0, 0, 0],
             }
             expect(
-                flattenGridIntoCells([
-                    [0, 0, 0],
+                new CellGrid([
                     [0, 0, 0],
                     [1, 0, 0],
-                ])[6],
+                    [1, 0, 0],
+                ]).updateCells()[2][0],
             ).toEqual(expected)
         })
 
