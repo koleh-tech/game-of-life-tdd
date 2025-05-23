@@ -6,9 +6,8 @@ import {
     MdOutlineGridView,
 } from "react-icons/md"
 import "./App.css"
-import { flattenGridIntoCells, expand } from "./grid-logic"
-import { CellState, INITIAL_GAME_STATE, updateCell } from "./cell-logic"
-import { CellGridEditor } from "./cell-grid-editor"
+import { CellGrid } from "./grid-logic"
+import { CellState, INITIAL_GAME_STATE } from "./cell-logic"
 
 function App() {
     const [gridSize, setGridSize] = useState<number>(
@@ -18,7 +17,6 @@ function App() {
         useState<number>(500)
     const [cellGrid, setCellGrid] = useState<CellState[][]>(INITIAL_GAME_STATE)
     const [runningState, setRunningState] = useState(false)
-    const gridEditor = new CellGridEditor(cellGrid)
 
     function doubleCellGrid() {
         setGridSize(cellGrid.length * 2)
@@ -38,12 +36,9 @@ function App() {
     }
     const iterateOneGeneration = useCallback(() => {
         setCellGrid((prevGrid) => {
-            const nextGeneration =
-                flattenGridIntoCells(prevGrid).map(updateCell)
-            return expand(nextGeneration, {
-                numRows: prevGrid.length,
-                numCols: prevGrid[0].length,
-            })
+            return new CellGrid(prevGrid)
+                .updateCells()
+                .map((row) => row.map((cell) => cell.state))
         })
     }, [])
 
@@ -100,14 +95,14 @@ function App() {
                                 ? "cell alive"
                                 : "cell dead"
                         }
-                        onClick={() =>
-                            setCellGrid(
-                                gridEditor.withInvertedCellStateAt({
-                                    row: rowNum,
-                                    col: colNum,
-                                }),
-                            )
-                        }
+                        onClick={() => {
+                            const newCellGrid = [...cellGrid]
+                            newCellGrid[rowNum][colNum] =
+                                newCellGrid[rowNum][colNum] === CellState.DEAD
+                                    ? CellState.ALIVE
+                                    : CellState.DEAD
+                            setCellGrid(newCellGrid)
+                        }}
                     />
                 )
             }),
