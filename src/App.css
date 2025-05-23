@@ -47,7 +47,7 @@
     left: 10px;
 }
 
-.grid {
+.cell-grid {
     display: grid;
     width: 100%;
     gap: 2px;
