@@ -20,6 +20,9 @@ jobs:
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
 
+      - name: Check project is up to standard
+        run: npm run format:check && npm run lint && npm run test-on-ci
+
       - name: Build project
         run: npm run build
 
