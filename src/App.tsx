@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import {
     MdFastForward,
     MdOutlineFastRewind,
@@ -36,21 +36,25 @@ function App() {
                 .slice(0, cellGrid.length / 2),
         )
     }
+    const iterateOneGeneration = useCallback(() => {
+        setCellGrid((prevGrid) => {
+            const nextGeneration =
+                flattenGridIntoCells(prevGrid).map(updateCell)
+            return expand(nextGeneration, {
+                numRows: prevGrid.length,
+                numCols: prevGrid[0].length,
+            })
+        })
+    }, [])
 
     useEffect(() => {
         if (!runningState) return
-        const interval = setInterval(() => {
-            setCellGrid((prevGrid) => {
-                const nextGeneration =
-                    flattenGridIntoCells(prevGrid).map(updateCell)
-                return expand(nextGeneration, {
-                    numRows: cellGrid.length,
-                    numCols: cellGrid[0].length,
-                })
-            })
-        }, timeBetweenGenerations)
+        const interval = setInterval(
+            iterateOneGeneration,
+            timeBetweenGenerations,
+        )
         return () => clearInterval(interval)
-    }, [runningState, timeBetweenGenerations, gridSize])
+    }, [runningState, timeBetweenGenerations, gridSize, iterateOneGeneration])
 
     return (
         <>

@@ -1,16 +1,6 @@
 import type { Cell, CellState } from "./cell-logic"
 
 export class InvalidGameDimensions extends Error {}
-const directions = [
-    [-1, -1],
-    [-1, 0],
-    [-1, 1],
-    [0, -1],
-    [0, 1],
-    [1, -1],
-    [1, 0],
-    [1, 1],
-]
 
 export function flattenGridIntoCells(grid: CellState[][]) {
     if (grid.length <= 1 && !grid[0].length) {
