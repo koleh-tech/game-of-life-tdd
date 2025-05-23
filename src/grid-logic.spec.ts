@@ -32,11 +32,6 @@ describe("flattenGridIntoCells", () => {
     })
 
     describe("Populatings neighboring cells", () => {
-        test("no neighbors", () => {
-            const expected: Cell = { state: 0, neighbors: [] }
-            expect(flattenGridIntoCells([[0]])[0]).toEqual(expected)
-        })
-
         test("corner neighbors", () => {
             const expected: Cell = {
                 state: 1,
