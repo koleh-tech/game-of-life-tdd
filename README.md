@@ -5,6 +5,10 @@ This project let me practice Test Driven Development as well as setting up CICD 
 Although the main [Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Rules) logic was driven with TDD,
 the UI development was mainly guided by Typescript.
 
+## Highlife variation
+
+I've added the [Highlife](https://en.wikipedia.org/wiki/Highlife_(cellular_automaton)) variation of Conway's rules.
+
 ## Live instance
 
 View the live instance here: [live instance](https://koleh-tech.github.io/game-of-life-tdd/).

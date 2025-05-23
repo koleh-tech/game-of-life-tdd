@@ -22,7 +22,13 @@ describe("stateForCell", () => {
         })
     })
 
-    test("4. Any dead cell with exactly three live neighbours becomes a live cell.", () => {
+    test("4. Any dead cell with three live neighbours becomes a live cell.", () => {
         expect(updateCell({ state: 0, neighbors: [1, 1, 1, 0] }).state).toBe(1)
+    })
+
+    test("4. Any dead cell with six live neighbours becomes a live cell.", () => {
+        expect(
+            updateCell({ state: 0, neighbors: [1, 1, 1, 1, 1, 1, 0] }).state,
+        ).toBe(1)
     })
 })

@@ -44,7 +44,10 @@ export function updateCell(cell: Cell) {
 
 function willLive(cell: Cell) {
     if (cell.state === CellState.DEAD)
-        return livingNeighborsFor(cell).length === 3
+        return (
+            livingNeighborsFor(cell).length === 3 ||
+            livingNeighborsFor(cell).length === 6
+        )
     return (
         livingNeighborsFor(cell).length === 2 ||
         livingNeighborsFor(cell).length === 3
