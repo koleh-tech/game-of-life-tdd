@@ -6,7 +6,7 @@ import {
     MdOutlineGridView,
 } from "react-icons/md"
 import "./App.css"
-import { flattenGridIntoCells, expand } from "./grid-logic"
+import { flattenGridIntoCells, expand, CellGrid } from "./grid-logic"
 import { CellState, INITIAL_GAME_STATE, updateCell } from "./cell-logic"
 import { CellGridEditor } from "./cell-grid-editor"
 
@@ -38,12 +38,9 @@ function App() {
     }
     const iterateOneGeneration = useCallback(() => {
         setCellGrid((prevGrid) => {
-            const nextGeneration =
-                flattenGridIntoCells(prevGrid).map(updateCell)
-            return expand(nextGeneration, {
-                numRows: prevGrid.length,
-                numCols: prevGrid[0].length,
-            })
+            return new CellGrid(prevGrid)
+                .updateCells()
+                .map((row) => row.map((cell) => cell.state))
         })
     }, [])
 
