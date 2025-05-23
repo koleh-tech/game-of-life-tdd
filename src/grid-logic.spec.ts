@@ -6,7 +6,7 @@ import {
 } from "./grid-logic"
 import type { Cell } from "./cell-logic"
 
-describe("flattenGridIntoCells", () => {
+describe("GameState flatten", () => {
 	test("throws error if game dimensions invalid", () => {
 		expect(() => flattenGridIntoCells([[]])).toThrow(InvalidGameDimensions)
 	})
@@ -30,48 +30,48 @@ describe("flattenGridIntoCells", () => {
 			).toEqual(1)
 		})
 	})
+})
 
-	describe("Populating neighboring cells", () => {
-		test("no neighbors", () => {
-			const expected: Cell = { state: 0, neighbors: [] }
-			expect(flattenGridIntoCells([[0]])[0]).toEqual(expected)
-		})
+describe("GameState flatten neighboring cell population", () => {
+	test("no neighbors", () => {
+		const expected: Cell = { state: 0, neighbors: [] }
+		expect(flattenGridIntoCells([[0]])[0]).toEqual(expected)
+	})
 
-		test("corner neighbors", () => {
-			const expected: Cell = { state: 1, neighbors: [0, 0, 0] }
-			expect(
-				flattenGridIntoCells([
-					[0, 0, 0],
-					[0, 0, 0],
-					[1, 0, 0],
-				])[6],
-			).toEqual(expected)
-		})
+	test("corner neighbors", () => {
+		const expected: Cell = { state: 1, neighbors: [0, 0, 0] }
+		expect(
+			flattenGridIntoCells([
+				[0, 0, 0],
+				[0, 0, 0],
+				[1, 0, 0],
+			])[6],
+		).toEqual(expected)
+	})
 
-		test("surrounded by neighbors", () => {
-			const expected: Cell = { state: 1, neighbors: [0, 0, 0, 0, 0, 0, 0, 0] }
-			expect(
-				flattenGridIntoCells([
-					[0, 0, 0],
-					[0, 1, 0],
-					[0, 0, 0],
-				])[4],
-			).toEqual(expected)
-		})
+	test("surrounded by neighbors", () => {
+		const expected: Cell = { state: 1, neighbors: [0, 0, 0, 0, 0, 0, 0, 0] }
+		expect(
+			flattenGridIntoCells([
+				[0, 0, 0],
+				[0, 1, 0],
+				[0, 0, 0],
+			])[4],
+		).toEqual(expected)
 	})
 })
 
 describe("createGameStateFrom", () => {
 	test("brings 2D back", () => {
 		const cell = { state: 0, neighbors: [] }
-		const desiredGrid = [[0, 0, 0]]
 		const cellsToExpand = [cell, cell, cell]
+		const desiredGrid = [[0, 0, 0]]
 		expect(
 			expand(cellsToExpand, {
 				numRows: desiredGrid.length,
 				numCols: desiredGrid[0].length,
 			}),
-		).toEqual([[0, 0, 0]])
+		).toEqual(desiredGrid)
 	})
 
 	test("if no change, order is preserved", () => {
