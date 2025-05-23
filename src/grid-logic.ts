@@ -7,28 +7,32 @@ export class CellGrid {
         private stateGrid: CellState[][],
         private cellUpdater: (cell: Cell) => Cell = updateCell,
     ) {}
+
     updateCells() {
-        if (this.stateGrid.length <= 1 && !this.stateGrid[0].length) {
+        if (this.stateGrid.length <= 1 && !this.stateGrid[0].length)
             throw new InvalidGameDimensions("Invalid game dimensions")
-        }
+
         return this.stateGrid.map((rowRef, row) =>
-            rowRef.map((cellState, column) => {
-                const cell = {
-                    neighbors: [
-                        this.cellAtcoordinate(row - 1, column - 1),
-                        this.cellAtcoordinate(row - 1, column),
-                        this.cellAtcoordinate(row - 1, column + 1),
-                        this.cellAtcoordinate(row, column - 1),
-                        this.cellAtcoordinate(row, column + 1),
-                        this.cellAtcoordinate(row + 1, column - 1),
-                        this.cellAtcoordinate(row + 1, column),
-                        this.cellAtcoordinate(row + 1, column + 1),
-                    ],
+            rowRef.map((cellState, column) =>
+                this.cellUpdater({
+                    neighbors: this.neighborsForCell(row, column),
                     state: cellState,
-                }
-                return this.cellUpdater(cell)
-            }),
+                }),
+            ),
         )
+    }
+
+    neighborsForCell(row: number, column: number) {
+        return [
+            this.cellAtcoordinate(row - 1, column - 1),
+            this.cellAtcoordinate(row - 1, column),
+            this.cellAtcoordinate(row - 1, column + 1),
+            this.cellAtcoordinate(row, column - 1),
+            this.cellAtcoordinate(row, column + 1),
+            this.cellAtcoordinate(row + 1, column - 1),
+            this.cellAtcoordinate(row + 1, column),
+            this.cellAtcoordinate(row + 1, column + 1),
+        ]
     }
 
     /**
